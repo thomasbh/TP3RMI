@@ -32,7 +32,7 @@ public class SubastaVista {
 
     public SubastaVista() {
 
-        JFrame.setDefaultLookAndFeelDecorated(true);
+        JFrame.setDefaultLookAndFeelDecorated(false);
         Container panel;
 
         principal = new JFrame("Cliente Subasta");
