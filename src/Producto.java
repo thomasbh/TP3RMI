@@ -3,7 +3,6 @@ import java.util.List;
 
 public class Producto {
 
-    private int clave;
     private String nombre;
     private String descripcion;
     private Date limite;
@@ -13,7 +12,6 @@ public class Producto {
     private List<Oferta> ofertas;
 
     public Producto(int clave, String nombre, String descripcion, Date limite, float precio, Usuario vendedor) {
-        this.clave = clave;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.limite = limite;
@@ -21,9 +19,6 @@ public class Producto {
         this.vendedor = vendedor;
     }
 
-    public int getClave() {
-        return clave;
-    }
 
     public String getNombre() {
         return nombre;

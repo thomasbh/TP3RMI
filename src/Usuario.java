@@ -1,4 +1,5 @@
 public class Usuario {
+
     private String nombre;
     private String direccion;
     private String correo;
