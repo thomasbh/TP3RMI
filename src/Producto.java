@@ -1,24 +1,38 @@
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 public class Producto {
 
     private String nombre;
     private String descripcion;
-    private Date limite;
+    private Calendar inicio;
+    private Calendar limite;
     private float precio;
     private Usuario vendedor;
     private Usuario ganador;
     private List<Oferta> ofertas;
 
-    public Producto(int clave, String nombre, String descripcion, Date limite, float precio, Usuario vendedor) {
+    public Producto(String nombre, String descripcion, int tiempoAgregar, float precio, Usuario vendedor) {
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.limite = limite;
+        this.inicio = Calendar.getInstance();
+        limite = inicio;
+        limite.add(Calendar.SECOND, tiempoAgregar);
         this.precio = precio;
         this.vendedor = vendedor;
     }
 
+    public Calendar getInicio() {
+        return inicio;
+    }
+
+    public Calendar getLimite() {
+        return limite;
+    }
+
+    public List<Oferta> getOfertas() {
+        return ofertas;
+    }
 
     public String getNombre() {
         return nombre;
@@ -26,10 +40,6 @@ public class Producto {
 
     public String getDescripcion() {
         return descripcion;
-    }
-
-    public Date getLimite() {
-        return limite;
     }
 
     public float getPrecio() {

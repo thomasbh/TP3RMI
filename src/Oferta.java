@@ -1,18 +1,17 @@
-import java.util.Date;
+import java.util.Calendar;
 
 public class Oferta {
-    private String apodoUsuario;
-    private int claveDelProducto;
-    private Date fechaOferta;
+    private Usuario compradorPotencial;
+    private Producto producto;
+    private Calendar fechaOferta;
     private float montoOferta;
 
-    public Oferta(Usuario usuario, Producto producto, float montoOferta) {
-        apodoUsuario = usuario.getApodo();
-        claveDelProducto = producto.getClave();
-        Date now = new Date();
+    public Oferta(Usuario usuario, Producto prod, float montoOferta) {
+        compradorPotencial = usuario;
+        Calendar now = Calendar.getInstance();
         fechaOferta = now;
+        producto = prod;
         this.montoOferta = montoOferta;
     }
-
 
 }
