@@ -2,9 +2,7 @@
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import java.util.Hashtable;
-import java.util.Vector;
-import java.util.Enumeration;
+import java.util.*;
 
 import javax.swing.JList;
 import javax.swing.event.ListSelectionListener;
@@ -45,7 +43,7 @@ public class SubastaControlador implements ActionListener,
             System.out.println("Haciendo oferta del producto: " + producto);
             modelo.agregaProductoALaVenta(usuario, producto, monto);
         } else if (evento.getActionCommand().equals("Obtener lista")) {
-            Vector lista = modelo.obtieneCatalogo();
+            ArrayList lista = modelo.obtieneCatalogo();
             Enumeration it;
             InformacionProducto info;
             listaConPrecios = new Hashtable();

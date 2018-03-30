@@ -7,7 +7,8 @@ public class Producto {
     private String descripcion;
     private Calendar inicio;
     private Calendar limite;
-    private float precio;
+    private float precioInicial;
+    private float precioActual;
     private Usuario vendedor;
     private Usuario ganador;
     private List<Oferta> ofertas;
@@ -18,7 +19,8 @@ public class Producto {
         this.inicio = Calendar.getInstance();
         limite = inicio;
         limite.add(Calendar.SECOND, tiempoAgregar);
-        this.precio = precio;
+        precioInicial = precio;
+        precioActual = precioInicial;
         this.vendedor = vendedor;
     }
 
@@ -42,8 +44,12 @@ public class Producto {
         return descripcion;
     }
 
-    public float getPrecio() {
-        return precio;
+    public float getPrecioInicial() {
+        return precioInicial;
+    }
+
+    public float getPrecioActual() {
+        return precioActual;
     }
 
     public Usuario getVendedor() {
@@ -57,5 +63,14 @@ public class Producto {
     public void addOferta(Usuario usuario, float precio) {
         Oferta oferta = new Oferta(usuario, this, precio);
         ofertas.add(oferta);
+    }
+
+    public boolean actualizaPrecio(float monto) {
+
+        if (monto > precioActual) {
+            precioActual = monto;
+            return true;
+        } else
+            return false;
     }
 }

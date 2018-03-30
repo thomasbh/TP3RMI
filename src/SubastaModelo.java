@@ -1,35 +1,48 @@
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Vector;
 
 public class SubastaModelo {
 
-    Hashtable usuarios;
-    Hashtable productos;
-    Hashtable ofertas;
+    ArrayList<Usuario> usuarios;
+    ArrayList<Producto> productos;
+    ArrayList<Oferta> ofertas;
 
     public SubastaModelo() {
 
-        usuarios = new Hashtable();
-        productos = new Hashtable();
-        ofertas = new Hashtable();
+        usuarios = new ArrayList<>();
+        productos = new ArrayList<>();
+        ofertas = new ArrayList<>();
     }
 
-    public boolean registraUsuario(String nombre) {
+    public boolean registraUsuario(Usuario user) {
 
-        if (!usuarios.containsKey(nombre)) {
-
-            System.out.println("Agregando un nuevo usuario: " + nombre);
-            usuarios.put(nombre, nombre);
-            return true;
-
-        } else
-
-            return false;
+        if (!usuarios.isEmpty()) {
+            for (Usuario usuario : usuarios) {
+                if (usuario.getApodo() == user.getApodo())
+                    return false; // not a new nickname
+            }
+        }
+        System.out.println("Agregando un nuevo usuario de apodo: " + user.getApodo());
+        usuarios.add(user);
+        return true;
     }
 
-    public boolean agregaProductoALaVenta(String vendedor, String producto,
-                                          float precioInicial) {
+    public boolean agregaProductoALaVenta(Producto p) {
+
+        if (!productos.isEmpty()) {
+            for (Producto prod : productos) {
+                if (prod.getNombre().equals(p.getNombre()))
+                    return false; // not a new product name
+            }
+        }
+
+        System.out.println("Agregando un nuevo producto: " + p.getNombre());
+        productos.add(p);
+        return true;
+        /*
         if (!productos.containsKey(producto)) {
 
             System.out.println("Agregando un nuevo producto: " + producto);
@@ -42,11 +55,21 @@ public class SubastaModelo {
         } else
 
             return false;
+            */
     }
 
-    public boolean agregaOferta(String comprador, String producto,
-                                float monto) {
+    public boolean agregaOferta(Oferta oferta) {
+        if (!ofertas.isEmpty()) {
+            for (Oferta of : ofertas) {
+                if (prod.getNombre().equals(p.getNombre()))
+                    return false; // not a new product name
+            }
+        }
 
+        System.out.println("Agregando un nuevo producto: " + p.getNombre());
+        productos.add(p);
+        return true;
+        /*
         if (productos.containsKey(producto)) {
 
             InformacionProducto infoProd;
@@ -67,14 +90,11 @@ public class SubastaModelo {
         } else
 
             return false;
+            */
     }
 
-    public Vector obtieneCatalogo() {
+    public ArrayList obtieneCatalogo() {
 
-        Vector resultado;
-
-        resultado = new Vector(productos.values());
-
-        return resultado;
+        return productos;
     }
 }

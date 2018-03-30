@@ -5,14 +5,14 @@ import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 
 public class CreacionUsuarioVista {
-    JFrame principal;
-    JTextField nombre;
-    JTextField direccion;
-    JTextField correo;
-    JFormattedTextField telefono;
-    JTextField apodo;
-    JButton validar;
-    JButton cancelar;
+    private JFrame principal;
+    private JTextField nombre;
+    private JTextField direccion;
+    private JTextField correo;
+    private JFormattedTextField telefono;
+    private JTextField apodo;
+    private JButton validar;
+    private JButton cancelar;
 
     public CreacionUsuarioVista() {
 
@@ -34,7 +34,7 @@ public class CreacionUsuarioVista {
         NumberFormat format = NumberFormat.getInstance();
         NumberFormatter formatter = new NumberFormatter(format);
         formatter.setValueClass(Long.class);
-        formatter.setMinimum(0);
+        formatter.setMinimum(0L);
         formatter.setMaximum(9999999999L);
         formatter.setAllowsInvalid(false);
         telefono = new JFormattedTextField(formatter);
@@ -72,8 +72,8 @@ public class CreacionUsuarioVista {
         return correo.getText();
     }
 
-    public String getTelefono() {
-        return telefono.getText();
+    public long getTelefono() {
+        return Long.parseLong(telefono.getText());
     }
 
     public String getApodo() {

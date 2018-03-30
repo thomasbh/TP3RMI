@@ -4,9 +4,10 @@ public class Principal {
     public static void main(String args[]) {
 
         SubastaVista vista;
+        MainVista try1;
         SubastaControlador controlador;
         SubastaModelo modelo;
-
+        try1 = new MainVista();
         vista = new SubastaVista();
         modelo = new SubastaModelo();
         controlador = new SubastaControlador(vista, modelo);
