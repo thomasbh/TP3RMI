@@ -59,6 +59,7 @@ public class SubastaModelo {
     }
 
     public boolean agregaOferta(Oferta oferta) {
+        /*
         if (!ofertas.isEmpty()) {
             for (Oferta of : ofertas) {
                 if (prod.getNombre().equals(p.getNombre()))
@@ -69,7 +70,7 @@ public class SubastaModelo {
         System.out.println("Agregando un nuevo producto: " + p.getNombre());
         productos.add(p);
         return true;
-        /*
+
         if (productos.containsKey(producto)) {
 
             InformacionProducto infoProd;
@@ -91,6 +92,7 @@ public class SubastaModelo {
 
             return false;
             */
+        return true;
     }
 
     public ArrayList obtieneCatalogo() {
