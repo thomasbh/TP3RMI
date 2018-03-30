@@ -52,7 +52,11 @@ public class CreacionUsuarioVista {
         panel.add(validar);
 
         principal.setSize(200, 200);
-        principal.setVisible(true);
+        principal.setVisible(false);
+    }
+
+    public void setVisible(boolean visi) {
+        principal.setVisible(visi);
     }
 
     public void asignarActionListener(ActionListener controlador) {
@@ -72,11 +76,19 @@ public class CreacionUsuarioVista {
         return correo.getText();
     }
 
-    public long getTelefono() {
-        return Long.parseLong(telefono.getText());
+    public String getTelefono() {
+        return telefono.getText();
     }
 
     public String getApodo() {
         return apodo.getText();
     }
+
+    public void errorCreatingUser() {
+        JOptionPane.showMessageDialog(principal,
+                "Este apodo ya existe, favor de seleccionar otro",
+                "Error creating user",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
 }

@@ -91,7 +91,6 @@ public class SubastaVista {
     }
 
     public void asignarListSelectionListener(ListSelectionListener controlador) {
-
         lista.addListSelectionListener(controlador);
     }
 

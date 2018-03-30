@@ -13,8 +13,25 @@ public class Principal {
         vista = new SubastaVista();
         modelo = new SubastaModelo();
         controlador = new SubastaControlador(vista, modelo);
+        //SubastaVista vista;
+        MainVista view;
+        MainControlador ctrl;
+        MainModelo model;
 
-        vista.asignarActionListener(controlador);
-        vista.asignarListSelectionListener(controlador);
+        view = new MainVista();
+        model = new MainModelo();
+        ctrl = new MainControlador(view, model);
+
+        view.asignarActionListener(ctrl);
+
+
+        //SubastaControlador controlador;
+        //SubastaModelo modelo;
+        //vista = new SubastaVista();
+        //modelo = new SubastaModelo();
+        //controlador = new SubastaControlador(vista, modelo);
+
+        //vista.asignarActionListener(controlador);
+        //vista.asignarListSelectionListener(controlador);
     }
 }
