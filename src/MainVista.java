@@ -9,6 +9,7 @@ public class MainVista {
     private Usuario currentUser;
     JFrame principal;
     JPanel panel;
+    JScrollPane s;
     JTextArea welcome;
     JMenuBar mb;
     JMenu connect;
@@ -34,6 +35,7 @@ public class MainVista {
         welcome.setEditable(false);
         welcome.setText("Bienvenido a Gato Shop! \n" +
                 "Registrate para conectarte a la tienda.\n");
+        panel.add(welcome);
         principal.add(panel);
 
         principal.addWindowListener(new CloseHandler());
