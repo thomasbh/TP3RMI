@@ -5,9 +5,11 @@ public class Principal {
 
         SubastaVista vista;
         MainVista try1;
+        VenderProductoVista ventaproducto;
         SubastaControlador controlador;
         SubastaModelo modelo;
         try1 = new MainVista();
+        ventaproducto = new VenderProductoVista();
         vista = new SubastaVista();
         modelo = new SubastaModelo();
         controlador = new SubastaControlador(vista, modelo);
