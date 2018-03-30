@@ -21,29 +21,19 @@ public class MainVista {
 
         //Menubar
         mb = new JMenuBar();
-        connect = new JMenu("Connectarse");
+        connect = new JMenu("Acceder a la tienda");
         mb.add(connect);
         principal.setJMenuBar(mb);
 
         //Menuitem
-        conectarse = new JMenuItem();
+        conectarse = new JMenuItem("Registrarse");
         connect.add(conectarse);
 
         //Text
         welcome = new JTextArea(20, 60);
         welcome.setEditable(false);
         welcome.setText("Bienvenido a Gato Shop! \n" +
-                "Registrate para conectarte a la tienda." +
-                "    /\\__/\\\n" +
-                "   /`    '\\\n" +
-                " === 0  0 ===\n" +
-                "   \\  --  /\n" +
-                "  /        \\\n" +
-                " /          \\\n" +
-                "|            |\n" +
-                " \\  ||  ||  /\n" +
-                "  \\_oo__oo_/#######o");
-        panel.add(welcome);
+                "Registrate para conectarte a la tienda.\n");
         principal.add(panel);
 
         principal.addWindowListener(new CloseHandler());
