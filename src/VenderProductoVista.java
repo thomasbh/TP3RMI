@@ -17,13 +17,11 @@ public class VenderProductoVista extends JFrame  {
     JTextArea areaNombre;
     JTextArea areaDescripcion;
     JTextArea areaFechaLimite;
-    JTextArea areaTiempoLimite;
     JTextArea areaPrecio;
 
     JLabel etiquetaNombre;
     JLabel etiquetaDescripcion;
     JLabel etiquetaFechalimite;
-    JLabel etiquetaTiempoLimite;
     JLabel etiquetaPrecio;
     JLabel etiquetaVendeProducto;
 
@@ -60,7 +58,6 @@ public class VenderProductoVista extends JFrame  {
         areaNombre = new JTextArea();
         areaDescripcion = new JTextArea();
         areaFechaLimite = new JTextArea();
-        areaTiempoLimite = new JTextArea();
         areaPrecio = new JTextArea();
 
         //Tamaño del area de Texto con borde negro
@@ -71,9 +68,7 @@ public class VenderProductoVista extends JFrame  {
         areaDescripcion.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaFechaLimite.setBounds(300, 110, 200, 20);
         areaFechaLimite.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaTiempoLimite.setBounds(300,140, 100, 20);
-        areaTiempoLimite.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaPrecio.setBounds(300,170, 100, 20);
+        areaPrecio.setBounds(300,140, 100, 20);
         areaPrecio.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         //Añado area de Texto
@@ -81,7 +76,6 @@ public class VenderProductoVista extends JFrame  {
         venderProductos.add(areaNombre);
         venderProductos.add(areaDescripcion);
         venderProductos.add(areaFechaLimite);
-        venderProductos.add(areaTiempoLimite);
         venderProductos.add(areaPrecio);
 
         //Creacion de Etiquetas
@@ -89,7 +83,6 @@ public class VenderProductoVista extends JFrame  {
         etiquetaNombre = new JLabel("Nombre del Producto:");
         etiquetaDescripcion = new JLabel("Descripción:");
         etiquetaFechalimite = new JLabel("Fecha Límite:");
-        etiquetaTiempoLimite= new JLabel("Tiempo Límite:");
         etiquetaPrecio = new JLabel("Precio Inicial:");
         etiquetaVendeProducto = new JLabel("Vende tu Producto");
 
@@ -101,9 +94,7 @@ public class VenderProductoVista extends JFrame  {
         etiquetaDescripcion.setFont(fondo);
         etiquetaFechalimite.setBounds(100, 110, 200, 20);
         etiquetaFechalimite.setFont(fondo);
-        etiquetaTiempoLimite.setBounds(100,140, 200, 20);
-        etiquetaTiempoLimite.setFont(fondo);
-        etiquetaPrecio.setBounds(100,170, 100, 20);
+        etiquetaPrecio.setBounds(100,140, 100, 20);
         etiquetaPrecio.setFont(fondo);
         etiquetaVendeProducto.setBounds(190,10,300,20);
         etiquetaVendeProducto.setFont(fondo1);
@@ -113,7 +104,6 @@ public class VenderProductoVista extends JFrame  {
         venderProductos.add(etiquetaNombre);
         venderProductos.add(etiquetaDescripcion);
         venderProductos.add(etiquetaFechalimite);
-        venderProductos.add(etiquetaTiempoLimite);
         venderProductos.add(etiquetaPrecio);
         venderProductos.add(etiquetaVendeProducto);
 
