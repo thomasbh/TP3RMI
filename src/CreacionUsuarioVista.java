@@ -84,11 +84,19 @@ public class CreacionUsuarioVista {
         return apodo.getText();
     }
 
+
     public void errorCreatingUser() {
         JOptionPane.showMessageDialog(principal,
                 "Este apodo ya existe, favor de seleccionar otro",
                 "Error creating user",
                 JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void userSuccessfullyCreated() {
+        JOptionPane.showMessageDialog(principal,
+                "Usuario creado y conectado a la tienda",
+                "User successfully created",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
 }

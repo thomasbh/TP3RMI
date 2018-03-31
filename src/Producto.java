@@ -60,8 +60,8 @@ public class Producto {
         return ganador;
     }
 
-    public void addOferta(Usuario usuario, float precio) {
-        Oferta oferta = new Oferta(usuario, this, precio);
+    public void addOferta(Oferta oferta) {
+        //Oferta oferta = new Oferta(usuario, this, precio);
         ofertas.add(oferta);
     }
 

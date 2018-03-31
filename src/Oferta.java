@@ -14,4 +14,19 @@ public class Oferta {
         this.montoOferta = montoOferta;
     }
 
+    public Usuario getCompradorPotencial() {
+        return compradorPotencial;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public Calendar getFechaOferta() {
+        return fechaOferta;
+    }
+
+    public float getMontoOferta() {
+        return montoOferta;
+    }
 }
