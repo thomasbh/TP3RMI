@@ -11,6 +11,7 @@ public class CatShopView {
     //Con la variable Font pones tipo y tamaño de letra
     Font fondo = new Font("Arial", Font.BOLD,15);
     Font fondo1 = new Font("Arial", Font.BOLD, 35);
+    Font fondo2 = new Font("Arial", Font.BOLD, 35);
 
 
     //registrar usuario botones
