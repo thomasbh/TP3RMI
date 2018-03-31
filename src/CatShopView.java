@@ -7,6 +7,13 @@ import java.awt.Font;
 
 public class CatShopView {
 
+    //other
+
+    Usuario currentUser;
+    Producto selectedProduct;
+
+    // window
+
     JFrame catshop = new JFrame("Cat Shop");
     //Con la variable Font pones tipo y tamaño de letra
     Font fondo = new Font("Arial", Font.BOLD,15);
@@ -213,4 +220,112 @@ public class CatShopView {
 
 
     }
+
+    public void asignarActionListener(ActionListener controlador) {
+        botonConectarse.addActionListener(controlador);
+    }
+
+    public Producto getSelectedProduct() {
+        return selectedProduct;
+    }
+
+    public void setSelectedProduct(Producto prod) {
+        selectedProduct = prod;
+    }
+
+    public Usuario getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(Usuario user) {
+        currentUser = user;
+    }
+
+    public String getUserName() {
+        return areaUserName.getText();
+    }
+
+    public String getUserDireccion() {
+        return areaDireccion.getText();
+    }
+
+    public String getUserCorreo() {
+        return areaCorreo.getText();
+    }
+
+    public String getUserTelefono() {
+        return areaTelefono.getText();
+    }
+
+    public String getUserApodo() {
+        return areaNombreUsuario.getText();
+    }
+
+    // TO IMPLEMENT PROPERLY
+
+    public String getProductName() {
+        return "Product Name";
+    }
+
+    public String getProductDesc() {
+        return "Product desc";
+    }
+
+    public int getTiempoVenta() {
+        return 30;
+    }
+
+    public float getProductInitialPrice() {
+        return 150.0f;
+    }
+
+    public float getMontoOferta() {
+        return 200.0f;
+    }
+
+
+    // SUCCESS OR ERROR MESSAGES
+
+    public void errorCreatingUser() {
+        JOptionPane.showMessageDialog(catshop,
+                "Este apodo ya existe, favor de seleccionar otro",
+                "Error creating user",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void userSuccessfullyCreated() {
+        JOptionPane.showMessageDialog(catshop,
+                "Usuario creado y conectado a la tienda",
+                "User successfully created",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void offerDeclined() {
+        JOptionPane.showMessageDialog(catshop,
+                "Lo sentimos, no se pudo realizar esta oferta.",
+                "Offer declined",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void offerAccepted() {
+        JOptionPane.showMessageDialog(catshop,
+                "Su oferta ha sido aceptada.",
+                "Offer accepted",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void ventaRefused() {
+        JOptionPane.showMessageDialog(catshop,
+                "Lo sentimos, no se puede vender este producto con tal nombre.",
+                "Venta no aceptada",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void ventaAccepted() {
+        JOptionPane.showMessageDialog(catshop,
+                "Su producto está en el mercado.",
+                "Venta aceptada",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
 }
