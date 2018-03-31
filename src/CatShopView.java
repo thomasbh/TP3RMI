@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -61,6 +62,15 @@ public class CatShopView {
     JTextArea areaTelefonoAcabadas;
     JTextArea areaCorreoAcabadas;
     JTextArea areaPreciodeVenta;
+
+    //comprar un Producto
+    JTextArea areaListaProductos;
+    JTextArea areaName;
+    JTextArea areaDescripcionProduc;
+    JTextArea areaVendedor;
+    JTextArea areaPrecioActual;
+    JTextArea areaOferta;
+
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -242,25 +252,25 @@ public class CatShopView {
         areaPreciodeVenta = new JTextArea();
 
         //mis ventas Tamaño del area de Texto con borde negro
-        listaVentasEnCurso.setBounds(950, 145, 200, 40);
+        listaVentasEnCurso.setBounds(950, 145, 200, 65);
         listaVentasEnCurso.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaNombreMisVentas.setBounds(950, 195, 200, 20);
+        areaNombreMisVentas.setBounds(950, 225, 200, 20);
         areaNombreMisVentas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaDescripcionMisVentas.setBounds(950, 225, 200, 20);
+        areaDescripcionMisVentas.setBounds(950, 255, 200, 20);
         areaDescripcionMisVentas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaPrecioActualMisVentas.setBounds(950,255, 200, 20);
+        areaPrecioActualMisVentas.setBounds(950,285, 200, 20);
         areaPrecioActualMisVentas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaTiempoRestante.setBounds(950,285, 200, 20);
+        areaTiempoRestante.setBounds(950,315, 200, 20);
         areaTiempoRestante.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        listaVentasAcabadas.setBounds(1160, 145, 200, 40);
+        listaVentasAcabadas.setBounds(1160,145, 200, 65);
         listaVentasAcabadas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaVendidoA.setBounds(1160,195, 200, 20);
+        areaVendidoA.setBounds(1160,225, 200, 20);
         areaVendidoA.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaTelefonoAcabadas.setBounds(1160,225, 200, 20);
+        areaTelefonoAcabadas.setBounds(1160,255, 200, 20);
         areaTelefonoAcabadas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaCorreoAcabadas.setBounds(1160,255, 200, 20);
+        areaCorreoAcabadas.setBounds(1160,285, 200, 20);
         areaCorreoAcabadas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaPreciodeVenta.setBounds(1160,285, 200, 20);
+        areaPreciodeVenta.setBounds(1160,315, 200, 20);
         areaPreciodeVenta.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         //mis ventas Añado area de Texto
@@ -274,6 +284,38 @@ public class CatShopView {
         catshop.add(areaTelefonoAcabadas);
         catshop.add(areaCorreoAcabadas);
         catshop.add(areaPreciodeVenta);
+
+////////////////////////////////AREA COMPRAR UN PRODUCTO////////////////////////////////////////////////////////////////
+
+        // comprar un producto Creacion area de Texto
+        areaListaProductos = new JTextArea();
+        areaName = new JTextArea();
+        areaDescripcionProduc = new JTextArea();
+        areaVendedor = new JTextArea();
+        areaOferta = new JTextArea();
+        areaPrecioActual = new JTextArea();
+
+        //comprar un producto  Tamaño del area de Texto con borde negro
+        areaListaProductos.setBounds(45, 485, 200, 65);
+        areaListaProductos.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaName.setBounds(115, 575, 200, 20);
+        areaName.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaDescripcionProduc.setBounds(115, 605, 200, 20);
+        areaDescripcionProduc.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaVendedor.setBounds(115,635, 200, 20);
+        areaVendedor.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaPrecioActual.setBounds(115,665, 200, 20);
+        areaPrecioActual.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaOferta.setBounds(50,705, 100, 25);
+        areaOferta.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        //comprar un producto Añado area de Texto
+        catshop.add(areaListaProductos);
+        catshop.add(areaName);
+        catshop.add(areaDescripcionProduc);
+        catshop.add(areaVendedor);
+        catshop.add(areaPrecioActual);
+        catshop.add(areaOferta);
 
 //////////////////////////////////ETIQUETAS REGISTRAR USUARIO///////////////////////////////////////////////////////////
 
@@ -344,6 +386,29 @@ public class CatShopView {
         catshop.add(etiquetaEnCurso);
         catshop.add(etiquetaAcabadas);
 
+//////////////////////////////////ETIQUETAS COMPRAR UN PRODUCTO ////////////////////////////////////////////////////////
+
+        //comprar un producto Creacion de Etiquetas
+        etiquetaName = new JLabel("Nombre:");
+        etiquetaDescripcionProduc = new JLabel("Descripción:");
+        etiquetaVendedor = new JLabel("Vendedor:");
+        etiquetaPrecioActual = new JLabel("Precio Actual:");
+
+        //comprar un producto Tamaño de etiqueta y tipo y tamaño de letra
+        etiquetaName.setBounds(10, 575, 200, 20);
+        etiquetaName.setFont(fondo);
+        etiquetaDescripcionProduc.setBounds(10, 605, 100, 20);
+        etiquetaDescripcionProduc.setFont(fondo);
+        etiquetaVendedor.setBounds(10, 635, 200, 20);
+        etiquetaVendedor.setFont(fondo);
+        etiquetaPrecioActual.setBounds(10,665, 100, 20);
+        etiquetaPrecioActual.setFont(fondo);
+
+        //comprar un producto Añado etiqueta
+        catshop.add(etiquetaName);
+        catshop.add(etiquetaDescripcionProduc);
+        catshop.add(etiquetaVendedor);
+        catshop.add(etiquetaPrecioActual);
 
 //////////////////////////////////ETIQUETAS TITULO//////////////////////////////////////////////////////////////////////
         // Creacion Etiquetas titulo
@@ -453,7 +518,7 @@ public class CatShopView {
     // TO IMPLEMENT PROPERLY
 
     public float getMontoOferta() {
-        return 10.0f;
+        return 200.0f;
     }
 
 
