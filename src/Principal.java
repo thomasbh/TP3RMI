@@ -6,15 +6,17 @@ public class Principal {
         SubastaVista vista;
         MainVista try1;
         VenderProductoVista ventaproducto;
+        CatShopView catshopview;
         SubastaControlador controlador;
         SubastaModelo modelo;
-        try1 = new MainVista();
-        ventaproducto = new VenderProductoVista();
+        //try1 = new MainVista();
+        //ventaproducto = new VenderProductoVista();
+        catshopview = new CatShopView();
         vista = new SubastaVista();
         modelo = new SubastaModelo();
         controlador = new SubastaControlador(vista, modelo);
         //SubastaVista vista;
-        MainVista view;
+       /* MainVista view;
         MainControlador ctrl;
         MainModelo model;
 
@@ -23,7 +25,7 @@ public class Principal {
         ctrl = new MainControlador(view, model);
 
         view.asignarActionListener(ctrl);
-
+*/
 
         //SubastaControlador controlador;
         //SubastaModelo modelo;
