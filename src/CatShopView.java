@@ -18,7 +18,7 @@ public class CatShopView {
 
     // window
 
-    JFrame catshop = new JFrame("Cat Shop");
+    JFrame catshop = new JFrame("CatShop");
     //Con la variable Font pones tipo y tamaño de letra
     Font fondo = new Font("Arial", Font.BOLD,15);
     Font fondo1 = new Font("Arial", Font.BOLD, 35);
@@ -75,6 +75,23 @@ public class CatShopView {
     JTextArea areaPrecioActual;
     JTextArea areaOferta;
 
+    //Mis compras en curso
+    JTextArea arealistadeApuestaMas;
+    JTextArea arealistadeEstasGanando;
+    JTextArea areaMandarOferta;
+    JTextArea areaPrecioActualApuestaMas;
+    JTextArea areaPrecioActualEstasGanando;
+
+    // Mis compras acabadas
+    JTextArea areaListaGane;
+    JTextArea areaListaPerdi;
+    JTextArea areaTelefonoGane;
+    JTextArea areaCorreoGane;
+    JTextArea areaPrecioGane;
+    JTextArea areaPrecioPerdi;
+
+
+
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -105,7 +122,6 @@ public class CatShopView {
 
     //mis ventas etiquetas
     JLabel etiquetaEnCurso;
-    JLabel etiquetaListaenCurso;
     JLabel etiquetaNombreMisVentas;
     JLabel etiquetaDescripcionMisVentas;
     JLabel etiquetaPrecioActualMisVentas;
@@ -135,7 +151,7 @@ public class CatShopView {
     JLabel etiquetaMisComprasAcabadas;
 
 
-////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public CatShopView(){
 
@@ -188,6 +204,19 @@ public class CatShopView {
 
         //vender producto añado botones
         catshop.add(botonMandarOferta);
+
+/////////////////////////////BOTONES MIS COMPRAS EN CURSO///////////////////////////////////////////////////////////////
+
+        //mis compras en curso botones
+        botonMandar = new Button("Mandar");
+
+        //mis compras en cursov tamaño y color de botones
+        botonMandar.setBounds(510,650, 100, 20);
+        botonMandar.setForeground(Color.gray);
+
+        //mis compras en curso añado botones
+        catshop.add(botonMandar);
+
 
 ////////////////////////////////AREA REGISTRAR USUARIO//////////////////////////////////////////////////////////////////
 
@@ -323,6 +352,67 @@ public class CatShopView {
         catshop.add(areaPrecioActual);
         catshop.add(areaOferta);
 
+////////////////////////////////AREA MIS COMPRAS EN CURSO///////////////////////////////////////////////////////////////
+
+        // mis compras en curso area de Texto
+        arealistadeApuestaMas = new JTextArea();
+        arealistadeEstasGanando = new JTextArea();
+        areaMandarOferta = new JTextArea();
+        areaPrecioActualApuestaMas = new JTextArea();
+        areaPrecioActualEstasGanando = new JTextArea();
+
+        //mis compras en curso Tamaño del area de Texto con borde negro
+        arealistadeApuestaMas.setBounds(410, 510, 200, 65);
+        arealistadeApuestaMas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaMandarOferta.setBounds(410,650, 90, 20);
+        areaMandarOferta.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaPrecioActualApuestaMas.setBounds(410,605, 200, 20);
+        areaPrecioActualApuestaMas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        arealistadeEstasGanando.setBounds(620,510, 200, 65);
+        arealistadeEstasGanando.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaPrecioActualEstasGanando.setBounds(620,605, 200, 20);
+        areaPrecioActualEstasGanando.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        //mis compras en curso Añado area de Texto
+        catshop.add(arealistadeApuestaMas);
+        catshop.add(arealistadeEstasGanando);
+        catshop.add(areaMandarOferta);
+        catshop.add(areaPrecioActualApuestaMas);
+        catshop.add(areaPrecioActualEstasGanando);
+
+////////////////////////////////AREA MIS COMPRAS ACABADAS///////////////////////////////////////////////////////////////
+
+        // mis compras en curso area de Texto
+        areaListaGane = new JTextArea();
+        areaListaPerdi = new JTextArea();
+        areaTelefonoGane = new JTextArea();
+        areaCorreoGane = new JTextArea();
+        areaPrecioGane = new JTextArea();
+        areaPrecioPerdi = new JTextArea();
+
+        //mis compras en curso Tamaño del area de Texto con borde negro
+        areaListaGane.setBounds(950, 510, 200, 65);
+        areaListaGane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaTelefonoGane.setBounds(950,635, 200, 20);
+        areaTelefonoGane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaCorreoGane.setBounds(950,680, 200, 20);
+        areaCorreoGane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaPrecioGane.setBounds(950,725, 200, 20);
+        areaPrecioGane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaListaPerdi.setBounds(1160,510, 200, 65);
+        areaListaPerdi.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaPrecioPerdi.setBounds(1160,605, 200, 20);
+        areaPrecioPerdi.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        //mis compras en curso Añado area de Texto
+        catshop.add(areaListaGane);
+        catshop.add(areaListaPerdi);
+        catshop.add(areaTelefonoGane);
+        catshop.add(areaCorreoGane);
+        catshop.add(areaPrecioGane);
+        catshop.add(areaPrecioPerdi);
+
+
 //////////////////////////////////ETIQUETAS REGISTRAR USUARIO///////////////////////////////////////////////////////////
 
         //registrar usuario Creacion de Etiquetas
@@ -416,9 +506,75 @@ public class CatShopView {
         catshop.add(etiquetaVendedor);
         catshop.add(etiquetaPrecioActual);
 
+//////////////////////////////////ETIQUETAS MIS COMPRAS EN CURSO ///////////////////////////////////////////////////////
+
+        //mis ventas Creacion de Etiquetas
+        etiquetaApuestaMas = new JLabel("Apuesta más");
+        etiquetaEstasGanando = new JLabel("Estas Ganando");
+        etiquetaPrecioActualApuestaMas = new JLabel("Precio Actual");
+        etiquetaPrecioActualEstasGanando = new JLabel("Precio Actual");
+
+        //mis ventas Tamaño de etiqueta y tipo y tamaño de letra
+        etiquetaApuestaMas.setBounds(410, 485, 200, 20);
+        etiquetaApuestaMas.setFont(fondo3);
+        etiquetaEstasGanando.setBounds(620, 485, 200, 20);
+        etiquetaEstasGanando.setFont(fondo3);
+        etiquetaPrecioActualApuestaMas.setBounds(410, 580, 200, 20);
+        etiquetaPrecioActualApuestaMas.setFont(fondo);
+        etiquetaPrecioActualEstasGanando.setBounds(620, 580, 100, 20);
+        etiquetaPrecioActualEstasGanando.setFont(fondo);
+
+
+        //mis ventas Añado etiqueta
+        catshop.add(etiquetaApuestaMas);
+        catshop.add(etiquetaEstasGanando);
+        catshop.add(etiquetaPrecioActualApuestaMas);
+        catshop.add(etiquetaPrecioActualEstasGanando);
+
+
+//////////////////////////////////ETIQUETAS MIS COMPRAS ACABADAS////////////////////////////////////////////////////////
+
+        //mis ventas Creacion de Etiquetas
+        etiquetaGane = new JLabel("Gané");
+        etiquetaPerdi = new JLabel("Perdí");
+        etiquetaContactodelVendedor = new JLabel("Contacto del Vendedor");
+        etiquetaTelefonodelVendedor = new JLabel("Teléfono");
+        etiquetaCorreodelVendedor = new JLabel("Correo");
+        etiquetaPrecioFinal = new JLabel("Precio Final");
+        etiquetaVendidoAPrecio = new JLabel("Vendido a Precio");
+
+
+        //mis ventas Tamaño de etiqueta y tipo y tamaño de letra
+        etiquetaGane.setBounds(950, 485, 200, 20);
+        etiquetaGane.setFont(fondo3);
+        etiquetaPerdi.setBounds(1160, 485, 200, 20);
+        etiquetaPerdi.setFont(fondo3);
+        etiquetaContactodelVendedor.setBounds(950, 580, 200, 20);
+        etiquetaContactodelVendedor.setFont(fondo);
+        etiquetaTelefonodelVendedor.setBounds(950, 610, 200, 20);
+        etiquetaTelefonodelVendedor.setFont(fondo);
+        etiquetaCorreodelVendedor.setBounds(950, 660, 200, 20);
+        etiquetaCorreodelVendedor.setFont(fondo);
+        etiquetaPrecioFinal.setBounds(950, 700, 200, 20);
+        etiquetaPrecioFinal.setFont(fondo);
+        etiquetaVendidoAPrecio.setBounds(1160, 580, 200, 20);
+        etiquetaVendidoAPrecio.setFont(fondo);
+
+
+        //mis ventas Añado etiqueta
+        catshop.add(etiquetaGane);
+        catshop.add(etiquetaPerdi);
+        catshop.add(etiquetaContactodelVendedor);
+        catshop.add(etiquetaTelefonodelVendedor);
+        catshop.add(etiquetaCorreodelVendedor);
+        catshop.add(etiquetaPrecioFinal);
+        catshop.add(etiquetaVendidoAPrecio);
+
+
+
 //////////////////////////////////ETIQUETAS TITULO//////////////////////////////////////////////////////////////////////
         // Creacion Etiquetas titulo
-        etiquetaCatShop = new JLabel("Cat Shop");
+        etiquetaCatShop = new JLabel("CatShop");
         etiquetaRegistrarUsuario = new JLabel("Registrar Usuario");
         etiquetaVenderunProducto = new JLabel("Vender un Producto");
         etiquetaMisVentas = new JLabel("Mis Ventas");
