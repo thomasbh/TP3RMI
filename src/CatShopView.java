@@ -1,9 +1,10 @@
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.awt.Color;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
 
 public class CatShopView {
 
@@ -11,6 +12,9 @@ public class CatShopView {
 
     Usuario currentUser;
     Producto selectedProduct;
+    DefaultListModel<String> model1;
+    DefaultListModel<String> model2;
+    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
     // window
 
@@ -23,12 +27,12 @@ public class CatShopView {
 
 
     //registrar usuario botones
-    Button botonEliminar;
+    Button botonSalir;
     Button botonConectarse;
 
     //vender producto botones
     Button botonVender;
-    Button botonElimina;
+    Button botonVaciarCamposVender;
 
     // Mis compras en curso - Apuesta mas
     Button botonMandar;
@@ -56,7 +60,7 @@ public class CatShopView {
     JTextArea areaNombreMisVentas;
     JTextArea areaDescripcionMisVentas;
     JTextArea areaPrecioActualMisVentas;
-    JTextArea areaTiempoRestante;
+    JTextArea areaTiempoRestanteMisVentas;
     JList<String> listaVentasAcabadas;
     JTextArea areaVendidoA;
     JTextArea areaTelefonoAcabadas;
@@ -145,33 +149,33 @@ public class CatShopView {
 
         // registrar usuario creacion botones
         botonConectarse = new Button("Conectarse");
-        botonEliminar = new Button("Eliminar");
+        botonSalir = new Button("Eliminar");
 
         //registrar usuario tamaño y color de botones
         botonConectarse.setBounds(15, 325, 110, 35);
         botonConectarse.setForeground(Color.gray);
-        botonEliminar.setBounds(185, 325, 110, 35);
-        botonEliminar.setForeground(Color.gray);
+        botonSalir.setBounds(185, 325, 110, 35);
+        botonSalir.setForeground(Color.gray);
 
         //registrar usuario Añado boton
-        catshop.add(botonEliminar);
+        catshop.add(botonSalir);
         catshop.add(botonConectarse);
 
 /////////////////////////////BOTONES VENDER PRODUCTO////////////////////////////////////////////////////////////////////
 
         //vender producto botones
         botonVender = new Button("Vender");
-        botonElimina = new Button("Elimina");
+        botonVaciarCamposVender = new Button("Elimina");
 
         //vender producto tamaño y color de botones
         botonVender.setBounds(490, 325, 110, 35);
         botonVender.setForeground(Color.gray);
-        botonElimina.setBounds(700, 325, 110, 35);
-        botonElimina.setForeground(Color.gray);
+        botonVaciarCamposVender.setBounds(700, 325, 110, 35);
+        botonVaciarCamposVender.setForeground(Color.gray);
 
         //vender producto añado botones
         catshop.add(botonVender);
-        catshop.add(botonElimina);
+        catshop.add(botonVaciarCamposVender);
 
 /////////////////////////////BOTONES COMPRAR UN PRODUCTO ///////////////////////////////////////////////////////////////
 
@@ -240,12 +244,14 @@ public class CatShopView {
 //////////////////////////////////AREA Mis Ventas///////////////////////////////////////////////////////////////////////
 
         // mis ventas Creacion area de Texto
-        listaVentasEnCurso = new JList<>();
+        model1 = new DefaultListModel<>();
+        listaVentasEnCurso = new JList<>(model1);
         areaNombreMisVentas = new JTextArea();
         areaDescripcionMisVentas = new JTextArea();
         areaPrecioActualMisVentas = new JTextArea();
-        areaTiempoRestante = new JTextArea();
-        listaVentasAcabadas = new JList<>();
+        areaTiempoRestanteMisVentas = new JTextArea();
+        model2 = new DefaultListModel<>();
+        listaVentasAcabadas = new JList<>(model2);
         areaVendidoA = new JTextArea();
         areaTelefonoAcabadas = new JTextArea();
         areaCorreoAcabadas = new JTextArea();
@@ -260,8 +266,8 @@ public class CatShopView {
         areaDescripcionMisVentas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaPrecioActualMisVentas.setBounds(950,285, 200, 20);
         areaPrecioActualMisVentas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaTiempoRestante.setBounds(950,315, 200, 20);
-        areaTiempoRestante.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaTiempoRestanteMisVentas.setBounds(950, 315, 200, 20);
+        areaTiempoRestanteMisVentas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         listaVentasAcabadas.setBounds(1160,145, 200, 65);
         listaVentasAcabadas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaVendidoA.setBounds(1160,225, 200, 20);
@@ -278,7 +284,7 @@ public class CatShopView {
         catshop.add(areaNombreMisVentas);
         catshop.add(areaDescripcionMisVentas);
         catshop.add(areaPrecioActualMisVentas);
-        catshop.add(areaTiempoRestante);
+        catshop.add(areaTiempoRestanteMisVentas);
         catshop.add(listaVentasAcabadas);
         catshop.add(areaVendidoA);
         catshop.add(areaTelefonoAcabadas);
@@ -462,12 +468,26 @@ public class CatShopView {
         botonVender.addActionListener(controlador);
     }
 
+    public void asignarListSelectionListener(ListSelectionListener controlador) {
+        listaVentasEnCurso.addListSelectionListener(controlador);
+        listaVentasAcabadas.addListSelectionListener(controlador);
+    }
+
     public Producto getSelectedProduct() {
         return selectedProduct;
     }
 
     public void setSelectedProduct(Producto prod) {
         selectedProduct = prod;
+    }
+
+    public void setSelectedSellingProduct(Producto p) {
+        System.out.println("Selected this product " + p.getNombre());
+        areaNombreMisVentas.setText(p.getNombre());
+        areaDescripcionMisVentas.setText(p.getDescripcion());
+        areaPrecioActualMisVentas.setText(String.valueOf(p.getPrecioActual()));
+        String date = sdf.format(p.getLimite().getTime());
+        areaTiempoRestanteMisVentas.setText(date);
     }
 
     public Usuario getCurrentUser() {
@@ -570,9 +590,22 @@ public class CatShopView {
 
     public void updateRegistrarUsuario() {
         System.out.println(currentUser.getApodo());
-        etiquetaRegistrarUsuario.setText("Bienvenido a CatShop " + currentUser.getApodo());
+        etiquetaRegistrarUsuario.setText("Bienvenido a CatShop, " + currentUser.getApodo() + " :)");
+        etiquetaUserName.setVisible(false);
+        areaRealName.setVisible(false);
+        etiquetaTelefono.setVisible(false);
+        areaTelefono.setVisible(false);
+        etiquetaDireccion.setVisible(false);
+        areaDireccion.setVisible(false);
         etiquetaCorreo.setVisible(false);
         areaCorreo.setVisible(false);
+        areaNombreUsuario.setVisible(false);
+        etiquetaNombreUsuario.setVisible(false);
+        botonConectarse.setVisible(false);
+    }
+
+    public void addSellingProduct(Producto prod) {
+        model1.addElement(prod.getNombre());
     }
 
 }

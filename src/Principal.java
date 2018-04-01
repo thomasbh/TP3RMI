@@ -7,6 +7,7 @@ public class Principal {
         CatModelo modelo = new CatModelo();
         Catroller controlador = new Catroller(catshopview, modelo);
         catshopview.asignarActionListener(controlador);
+        catshopview.asignarListSelectionListener(controlador);
 
 
         //vista.asignarActionListener(controlador);

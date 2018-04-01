@@ -44,6 +44,7 @@ public class Catroller implements ActionListener, ListSelectionListener {
                 view.ventaRefused();
             } else {
                 view.ventaAccepted();
+                view.addSellingProduct(prod);
             }
 
         }
@@ -53,10 +54,11 @@ public class Catroller implements ActionListener, ListSelectionListener {
     public void valueChanged(ListSelectionEvent e) {
         JList list = (JList) e.getSource();
         String item = (String) list.getSelectedValue();
+        System.out.println("Value changed");
         if (item != null) {
             System.out.println(item);
             Producto prod = model.getThisProduct(item);
-            view.setSelectedProduct(prod); //use selectedProduct to uddate only selected info
+            view.setSelectedSellingProduct(prod); //use selectedProduct to uddate only selected info
         }
     }
 }
