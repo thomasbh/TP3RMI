@@ -3,6 +3,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Catroller implements ActionListener, ListSelectionListener {
 
@@ -36,6 +37,7 @@ public class Catroller implements ActionListener, ListSelectionListener {
                 view.offerDeclined();
             } else {
                 view.offerAccepted();
+                view.addEstasGanandoProduct(view.getSelectedProduct());
             }
         } else if (e.getActionCommand().equals("Vender")) {
             Producto prod = new Producto(view.getProductName(), view.getProductDesc(), view.getTiempoVenta(), view.getProductInitialPrice(), view.getCurrentUser());
@@ -47,6 +49,15 @@ public class Catroller implements ActionListener, ListSelectionListener {
                 view.addSellingProduct(prod);
             }
 
+        } else if (e.getActionCommand().equals("Actualizar lista productos a comprar")) {
+            ArrayList<Producto> productosEnVenta = model.obtieneCatalogoActivo();
+            System.out.println("Updating catalogue");
+            view.updateListComprasPossibles(productosEnVenta);
+
+        } else if (e.getActionCommand().equals("Actualizar lista apuesta más")) {
+            ArrayList<Producto> productosEnVenta = model.obtieneCatalogoActivo();
+            System.out.println("Updating catalogue");
+            view.updateListComprasPossibles(productosEnVenta);
         }
     }
 

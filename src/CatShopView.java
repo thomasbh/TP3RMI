@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class CatShopView {
 
@@ -12,8 +13,13 @@ public class CatShopView {
 
     Usuario currentUser;
     Producto selectedProduct;
-    DefaultListModel<String> model1;
-    DefaultListModel<String> model2;
+    DefaultListModel<String> modelMisVentasEnCurso;
+    DefaultListModel<String> modelMisVentasAcabadas;
+    DefaultListModel<String> modelCatalogoProductos;
+    DefaultListModel<String> modelApuestaMas;
+    DefaultListModel<String> modelEstasGanando;
+    DefaultListModel<String> modelComprasGanadas;
+    DefaultListModel<String> modelComprasPerdidas;
     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
     // window
@@ -68,7 +74,8 @@ public class CatShopView {
     JTextArea areaPreciodeVenta;
 
     //comprar un Producto
-    JTextArea areaListaProductos;
+
+    JList<String> listaProductosCatalogo;
     JTextArea areaName;
     JTextArea areaDescripcionProduc;
     JTextArea areaVendedor;
@@ -76,15 +83,15 @@ public class CatShopView {
     JTextArea areaOferta;
 
     //Mis compras en curso
-    JTextArea arealistadeApuestaMas;
-    JTextArea arealistadeEstasGanando;
+    JList<String> listadeApuestaMas;
+    JList<String> listadeEstasGanando;
     JTextArea areaMandarOferta;
     JTextArea areaPrecioActualApuestaMas;
     JTextArea areaPrecioActualEstasGanando;
 
     // Mis compras acabadas
-    JTextArea areaListaGane;
-    JTextArea areaListaPerdi;
+    JList<String> listaGane;
+    JList<String> listaPerdi;
     JTextArea areaTelefonoGane;
     JTextArea areaCorreoGane;
     JTextArea areaPrecioGane;
@@ -273,14 +280,14 @@ public class CatShopView {
 //////////////////////////////////AREA Mis Ventas///////////////////////////////////////////////////////////////////////
 
         // mis ventas Creacion area de Texto
-        model1 = new DefaultListModel<>();
-        listaVentasEnCurso = new JList<>(model1);
+        modelMisVentasEnCurso = new DefaultListModel<>();
+        listaVentasEnCurso = new JList<>(modelMisVentasEnCurso);
         areaNombreMisVentas = new JTextArea();
         areaDescripcionMisVentas = new JTextArea();
         areaPrecioActualMisVentas = new JTextArea();
         areaTiempoRestanteMisVentas = new JTextArea();
-        model2 = new DefaultListModel<>();
-        listaVentasAcabadas = new JList<>(model2);
+        modelMisVentasAcabadas = new DefaultListModel<>();
+        listaVentasAcabadas = new JList<>(modelMisVentasAcabadas);
         areaVendidoA = new JTextArea();
         areaTelefonoAcabadas = new JTextArea();
         areaCorreoAcabadas = new JTextArea();
@@ -323,7 +330,7 @@ public class CatShopView {
 ////////////////////////////////AREA COMPRAR UN PRODUCTO////////////////////////////////////////////////////////////////
 
         // comprar un producto Creacion area de Texto
-        areaListaProductos = new JTextArea();
+        listaProductosCatalogo = new JList<>(modelCatalogoProductos);
         areaName = new JTextArea();
         areaDescripcionProduc = new JTextArea();
         areaVendedor = new JTextArea();
@@ -331,8 +338,8 @@ public class CatShopView {
         areaPrecioActual = new JTextArea();
 
         //comprar un producto  Tamaño del area de Texto con borde negro
-        areaListaProductos.setBounds(45, 485, 200, 65);
-        areaListaProductos.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        listaProductosCatalogo.setBounds(45, 485, 200, 65);
+        listaProductosCatalogo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaName.setBounds(115, 575, 200, 20);
         areaName.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaDescripcionProduc.setBounds(115, 605, 200, 20);
@@ -345,7 +352,7 @@ public class CatShopView {
         areaOferta.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         //comprar un producto Añado area de Texto
-        catshop.add(areaListaProductos);
+        catshop.add(listaProductosCatalogo);
         catshop.add(areaName);
         catshop.add(areaDescripcionProduc);
         catshop.add(areaVendedor);
@@ -355,27 +362,27 @@ public class CatShopView {
 ////////////////////////////////AREA MIS COMPRAS EN CURSO///////////////////////////////////////////////////////////////
 
         // mis compras en curso area de Texto
-        arealistadeApuestaMas = new JTextArea();
-        arealistadeEstasGanando = new JTextArea();
+        listadeApuestaMas = new JList<>(modelApuestaMas);
+        listadeEstasGanando = new JList<>(modelEstasGanando);
         areaMandarOferta = new JTextArea();
         areaPrecioActualApuestaMas = new JTextArea();
         areaPrecioActualEstasGanando = new JTextArea();
 
         //mis compras en curso Tamaño del area de Texto con borde negro
-        arealistadeApuestaMas.setBounds(410, 510, 200, 65);
-        arealistadeApuestaMas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        listadeApuestaMas.setBounds(410, 510, 200, 65);
+        listadeApuestaMas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaMandarOferta.setBounds(410,650, 90, 20);
         areaMandarOferta.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaPrecioActualApuestaMas.setBounds(410,605, 200, 20);
         areaPrecioActualApuestaMas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        arealistadeEstasGanando.setBounds(620,510, 200, 65);
-        arealistadeEstasGanando.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        listadeEstasGanando.setBounds(620, 510, 200, 65);
+        listadeEstasGanando.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaPrecioActualEstasGanando.setBounds(620,605, 200, 20);
         areaPrecioActualEstasGanando.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         //mis compras en curso Añado area de Texto
-        catshop.add(arealistadeApuestaMas);
-        catshop.add(arealistadeEstasGanando);
+        catshop.add(listadeApuestaMas);
+        catshop.add(listadeEstasGanando);
         catshop.add(areaMandarOferta);
         catshop.add(areaPrecioActualApuestaMas);
         catshop.add(areaPrecioActualEstasGanando);
@@ -383,30 +390,30 @@ public class CatShopView {
 ////////////////////////////////AREA MIS COMPRAS ACABADAS///////////////////////////////////////////////////////////////
 
         // mis compras en curso area de Texto
-        areaListaGane = new JTextArea();
-        areaListaPerdi = new JTextArea();
+        listaGane = new JList<>(modelComprasGanadas);
+        listaPerdi = new JList<>(modelComprasPerdidas);
         areaTelefonoGane = new JTextArea();
         areaCorreoGane = new JTextArea();
         areaPrecioGane = new JTextArea();
         areaPrecioPerdi = new JTextArea();
 
         //mis compras en curso Tamaño del area de Texto con borde negro
-        areaListaGane.setBounds(950, 510, 200, 65);
-        areaListaGane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        listaGane.setBounds(950, 510, 200, 65);
+        listaGane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaTelefonoGane.setBounds(950,635, 200, 20);
         areaTelefonoGane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaCorreoGane.setBounds(950,680, 200, 20);
         areaCorreoGane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaPrecioGane.setBounds(950,725, 200, 20);
         areaPrecioGane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaListaPerdi.setBounds(1160,510, 200, 65);
-        areaListaPerdi.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        listaPerdi.setBounds(1160, 510, 200, 65);
+        listaPerdi.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaPrecioPerdi.setBounds(1160,605, 200, 20);
         areaPrecioPerdi.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         //mis compras en curso Añado area de Texto
-        catshop.add(areaListaGane);
-        catshop.add(areaListaPerdi);
+        catshop.add(listaGane);
+        catshop.add(listaPerdi);
         catshop.add(areaTelefonoGane);
         catshop.add(areaCorreoGane);
         catshop.add(areaPrecioGane);
@@ -760,8 +767,23 @@ public class CatShopView {
         botonConectarse.setVisible(false);
     }
 
+    public void updateListComprasPossibles(ArrayList<Producto> prod) {
+        for (Producto p : prod) {
+            modelCatalogoProductos.addElement(p.getNombre());
+        }
+    }
+
+    public void addEstasGanandoProduct(Producto p) {
+        modelEstasGanando.addElement(p.getNombre());
+    }
+
+    public String[] getEstasGanando() {
+        String[] arrayGanando = (String[]) modelEstasGanando.toArray();
+        return arrayGanando;
+    }
+
     public void addSellingProduct(Producto prod) {
-        model1.addElement(prod.getNombre());
+        modelMisVentasEnCurso.addElement(prod.getNombre());
     }
 
 }

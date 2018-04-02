@@ -1,10 +1,11 @@
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.*;
 
 public class CatModelo {
 
     Hashtable usuarios;
     Hashtable productos;
+    Hashtable ventasEnCurso;
+    Hashtable ventasAcabadas;
     Hashtable ofertas;
 
     public CatModelo() {
@@ -75,12 +76,27 @@ public class CatModelo {
         return user;
     }
 
-    public Vector obtieneCatalogo() {
+    public ArrayList<Producto> obtieneCatalogoActivo() {
+        ArrayList<Producto> productosActivos = new ArrayList<>();
 
-        Vector resultado;
+        for (Object o : productos.values()) {
+            Producto p = (Producto) o;
+            if (p.getLimite().compareTo(Calendar.getInstance()) <= 0) {
+                productosActivos.add(p);
+            }
+        }
+        return productosActivos;
+    }
 
-        resultado = new Vector(productos.values());
+    public ArrayList<Producto> obtieneProductosExpirados() {
+        ArrayList<Producto> productosExpirados = new ArrayList<>();
 
-        return resultado;
+        for (Object o : productos.values()) {
+            Producto p = (Producto) o;
+            if (p.getLimite().compareTo(Calendar.getInstance()) >= 0) {
+                productosExpirados.add(p);
+            }
+        }
+        return productosExpirados;
     }
 }
