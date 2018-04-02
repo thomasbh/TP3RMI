@@ -55,9 +55,22 @@ public class Catroller implements ActionListener, ListSelectionListener {
             view.updateListComprasPossibles(productosEnVenta);
 
         } else if (e.getActionCommand().equals("Actualizar lista apuesta más")) {
-            ArrayList<Producto> productosEnVenta = model.obtieneCatalogoActivo();
-            System.out.println("Updating catalogue");
-            view.updateListComprasPossibles(productosEnVenta);
+            String[] arrayGanando = view.getEstasGanando();
+            ArrayList<String> tienesQueApostarMas = new ArrayList<>();
+            for (String s : arrayGanando) {
+                if (!model.sigueGanando(view.getCurrentUser(), s)) {
+                    tienesQueApostarMas.add(s);
+                }
+            }
+            view.updateListApuestaMas(tienesQueApostarMas);
+        } else if (e.getActionCommand().equals("Mandar contraoferta")) {
+            Oferta oferta = new Oferta(view.getCurrentUser(), view.getSelectedProduct(), view.getMontoContraOferta());
+            if (!model.ofertaAceptada(oferta)) {
+                view.offerDeclined();
+            } else {
+                view.offerAccepted();
+                view.addEstasGanandoProduct(view.getSelectedProduct());
+            }
         }
     }
 

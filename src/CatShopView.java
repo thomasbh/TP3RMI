@@ -330,6 +330,7 @@ public class CatShopView {
 ////////////////////////////////AREA COMPRAR UN PRODUCTO////////////////////////////////////////////////////////////////
 
         // comprar un producto Creacion area de Texto
+        modelCatalogoProductos = new DefaultListModel<>();
         listaProductosCatalogo = new JList<>(modelCatalogoProductos);
         areaName = new JTextArea();
         areaDescripcionProduc = new JTextArea();
@@ -362,7 +363,9 @@ public class CatShopView {
 ////////////////////////////////AREA MIS COMPRAS EN CURSO///////////////////////////////////////////////////////////////
 
         // mis compras en curso area de Texto
+        modelApuestaMas = new DefaultListModel<>();
         listadeApuestaMas = new JList<>(modelApuestaMas);
+        modelEstasGanando = new DefaultListModel<>();
         listadeEstasGanando = new JList<>(modelEstasGanando);
         areaMandarOferta = new JTextArea();
         areaPrecioActualApuestaMas = new JTextArea();
@@ -390,7 +393,9 @@ public class CatShopView {
 ////////////////////////////////AREA MIS COMPRAS ACABADAS///////////////////////////////////////////////////////////////
 
         // mis compras en curso area de Texto
+        modelComprasGanadas = new DefaultListModel<>();
         listaGane = new JList<>(modelComprasGanadas);
+        modelComprasPerdidas = new DefaultListModel<>();
         listaPerdi = new JList<>(modelComprasPerdidas);
         areaTelefonoGane = new JTextArea();
         areaCorreoGane = new JTextArea();
@@ -697,7 +702,9 @@ public class CatShopView {
         return Float.parseFloat(areaVenderPrecioInicial.getText());
     }
 
-
+    public float getMontoContraOferta() {
+        return 200.0f;
+    }
     // TO IMPLEMENT PROPERLY
 
     public float getMontoOferta() {
@@ -780,6 +787,12 @@ public class CatShopView {
     public String[] getEstasGanando() {
         String[] arrayGanando = (String[]) modelEstasGanando.toArray();
         return arrayGanando;
+    }
+
+    public void updateListApuestaMas(ArrayList<String> prodToAdd) {
+        for (String s : prodToAdd) {
+            modelApuestaMas.addElement(s);
+        }
     }
 
     public void addSellingProduct(Producto prod) {

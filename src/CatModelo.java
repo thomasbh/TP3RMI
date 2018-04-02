@@ -99,4 +99,15 @@ public class CatModelo {
         }
         return productosExpirados;
     }
+
+    public boolean sigueGanando(Usuario u, String prodAComprobar) {
+        Producto productoAComprobar = (Producto) productos.get(prodAComprobar);
+        List<Oferta> ofertasOnThisProd = productoAComprobar.getOfertas();
+        // if the last offer on this product is of the same buyer, return true
+        if (ofertasOnThisProd.get(ofertasOnThisProd.size() - 1).getCompradorPotencial() == u) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
