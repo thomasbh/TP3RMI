@@ -31,14 +31,6 @@ public class Catroller implements ActionListener, ListSelectionListener {
                 view.userSuccessfullyCreated(); //create success message
                 view.updateRegistrarUsuario();
             }
-        } else if (e.getActionCommand().equals("Mandar oferta")) {
-            Oferta oferta = new Oferta(view.getCurrentUser(), view.getSelectedProduct(), view.getMontoOferta());
-            if (!model.ofertaAceptada(oferta)) {
-                view.offerDeclined();
-            } else {
-                view.offerAccepted();
-                view.addEstasGanandoProduct(view.getSelectedProduct());
-            }
         } else if (e.getActionCommand().equals("Vender")) {
             Producto prod = new Producto(view.getProductName(), view.getProductDesc(), view.getTiempoVenta(), view.getProductInitialPrice(), view.getCurrentUser());
             System.out.println("Enters here");
@@ -49,6 +41,14 @@ public class Catroller implements ActionListener, ListSelectionListener {
                 view.addSellingProduct(prod);
             }
 
+        } else if (e.getActionCommand().equals("Mandar oferta")) {
+            Oferta oferta = new Oferta(view.getCurrentUser(), view.getSelectedProduct(), view.getMontoOferta());
+            if (!model.ofertaAceptada(oferta)) {
+                view.offerDeclined();
+            } else {
+                view.offerAccepted();
+                view.addEstasGanandoProduct(view.getSelectedProduct());
+            }
         } else if (e.getActionCommand().equals("Actualizar lista productos a comprar")) {
             ArrayList<Producto> productosEnVenta = model.obtieneCatalogoActivo();
             System.out.println("Updating catalogue");

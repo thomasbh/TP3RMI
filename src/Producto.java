@@ -60,6 +60,11 @@ public class Producto {
         return ganador;
     }
 
+    public void setGanador() {
+        Oferta lastoferta = ofertas.get(ofertas.size() - 1);
+        ganador = lastoferta.getCompradorPotencial();
+    }
+
     public void addOferta(Oferta oferta) {
         //Oferta oferta = new Oferta(usuario, this, precio);
         ofertas.add(oferta);
