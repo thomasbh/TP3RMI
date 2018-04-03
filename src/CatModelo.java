@@ -100,6 +100,26 @@ public class CatModelo {
         return productosExpirados;
     }
 
+    public List<Producto> getProductosGanados(Usuario user) {
+        ArrayList<Producto> productosGanados = new ArrayList<>();
+        for (Producto p : obtieneProductosExpirados()) {
+            if (p.getGanador() == user) {
+                productosGanados.add(p);
+            }
+        }
+        return productosGanados;
+    }
+
+    public List<Producto> getProductosPerdidos(Usuario user) {
+        ArrayList<Producto> productosPerdidos = new ArrayList<>();
+        for (Producto p : obtieneProductosExpirados()) {
+            if (p.getGanador() != user) {
+                productosPerdidos.add(p);
+            }
+        }
+        return productosPerdidos;
+    }
+
     public boolean sigueGanando(Usuario u, String prodAComprobar) {
         Producto productoAComprobar = (Producto) productos.get(prodAComprobar);
         List<Oferta> ofertasOnThisProd = productoAComprobar.getOfertas();

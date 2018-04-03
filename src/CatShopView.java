@@ -41,7 +41,7 @@ public class CatShopView {
     Button botonVaciarCamposVender;
 
     // Mis compras en curso - Apuesta mas
-    Button botonMandar;
+    Button botonApostarMas;
 
     //comprar un producto botones
     Button botonMandarOferta;
@@ -215,14 +215,14 @@ public class CatShopView {
 /////////////////////////////BOTONES MIS COMPRAS EN CURSO///////////////////////////////////////////////////////////////
 
         //mis compras en curso botones
-        botonMandar = new Button("Mandar");
+        botonApostarMas = new Button("Ofertar");
 
         //mis compras en cursov tamaño y color de botones
-        botonMandar.setBounds(510,650, 100, 20);
-        botonMandar.setForeground(Color.gray);
+        botonApostarMas.setBounds(510, 650, 100, 20);
+        botonApostarMas.setForeground(Color.gray);
 
         //mis compras en curso añado botones
-        catshop.add(botonMandar);
+        catshop.add(botonApostarMas);
 
 
 ////////////////////////////////AREA REGISTRAR USUARIO//////////////////////////////////////////////////////////////////
@@ -711,6 +711,33 @@ public class CatShopView {
         return 200.0f;
     }
 
+    public JList getListaVentasEnCurso() {
+        return listaVentasEnCurso;
+    }
+
+    public JList<String> getListaVentasAcabadas() {
+        return listaVentasAcabadas;
+    }
+
+    public JList<String> getListaProductosCatalogo() {
+        return listaProductosCatalogo;
+    }
+
+    public JList<String> getListadeApuestaMas() {
+        return listadeApuestaMas;
+    }
+
+    public JList<String> getListadeEstasGanando() {
+        return listadeEstasGanando;
+    }
+
+    public JList<String> getListaGane() {
+        return listaGane;
+    }
+
+    public JList<String> getListaPerdi() {
+        return listaPerdi;
+    }
 
     // SUCCESS OR ERROR MESSAGES
 

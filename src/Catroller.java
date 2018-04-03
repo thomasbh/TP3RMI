@@ -76,13 +76,14 @@ public class Catroller implements ActionListener, ListSelectionListener {
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        JList list = (JList) e.getSource();
-        String item = (String) list.getSelectedValue();
+        JList<String> list = (JList<String>) e.getSource();
+        String item = list.getSelectedValue();
         System.out.println("Value changed");
-        if (item != null) {
-            System.out.println(item);
-            Producto prod = model.getThisProduct(item);
-            view.setSelectedSellingProduct(prod); //use selectedProduct to uddate only selected info
-        }
+        if (list == view.getListaVentasEnCurso())
+            if (item != null) {
+                System.out.println(item);
+                Producto prod = model.getThisProduct(item);
+                view.setSelectedSellingProduct(prod); //use selectedProduct to uddate only selected info
+            }
     }
 }
