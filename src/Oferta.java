@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Oferta {
+public class Oferta implements Serializable {
     private Usuario compradorPotencial;
     private Producto producto;
     private Calendar fechaOferta;
