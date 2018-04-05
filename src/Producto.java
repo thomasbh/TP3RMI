@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-public class Producto {
+public class Producto implements Serializable {
 
     private String nombre;
     private String descripcion;

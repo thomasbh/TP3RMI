@@ -1,21 +1,46 @@
 import java.util.*;
+import java.rmi.registry.Registry;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public class CatModelo {
+public class Meowdelo implements ServerInterface {
 
+    //Hashtable ventasEnCurso;
+    //Hashtable ventasAcabadas;
+    Hashtable ofertas;
     Hashtable usuarios;
     Hashtable productos;
-    Hashtable ventasEnCurso;
-    Hashtable ventasAcabadas;
-    Hashtable ofertas;
+    private ArrayList<ClientInterface> callbackMe;
 
-    public CatModelo() {
+    public Meowdelo() {
 
         usuarios = new Hashtable();
         productos = new Hashtable();
         ofertas = new Hashtable();
+        callbackMe = new ArrayList<>();
     }
 
-    public boolean registraUsuario(Usuario user) {
+    public static void main(String args[]) {
+
+        try {
+            Meowdelo meow = new Meowdelo();
+            ServerInterface stub = (ServerInterface) UnicastRemoteObject.exportObject(meow, 0);
+            Registry registry = LocateRegistry.getRegistry();
+            registry.bind("Model", stub);
+            System.err.println("The server of catshop is ready!");
+        } catch (Exception e) {
+            System.err.println("Server exception: " + e.toString() + " :(");
+            e.printStackTrace();
+        }
+    }
+
+    public void register(ClientInterface cltint) {
+        callbackMe.add(cltint);
+    }
+
+
+    public synchronized boolean registrarUsuario(Usuario user) {
 
         if (!usuarios.containsKey(user.getApodo())) {
 
@@ -28,7 +53,7 @@ public class CatModelo {
             return false;
     }
 
-    public boolean ventaPermitida(Producto producto) {
+    public synchronized boolean ventaPermitida(Producto producto) {
         if (!productos.containsKey(producto.getNombre())) {
 
             System.out.println("Agregando un nuevo producto: " + producto.getNombre());
@@ -40,7 +65,7 @@ public class CatModelo {
             return false;
     }
 
-    public boolean ofertaAceptada(Oferta oferta) {
+    public synchronized boolean ofertaAceptada(Oferta oferta) {
 
         if (productos.containsValue(oferta.getProducto())) {
 
