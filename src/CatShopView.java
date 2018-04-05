@@ -383,6 +383,16 @@ public class CatShopView {
         catshop.add(areaCorreoAcabadas);
         catshop.add(areaPreciodeVenta);
 
+        //mis ventas no editar el TextArea
+        areaNombreMisVentas.setEditable(false);
+        areaDescripcionMisVentas.setEditable(false);
+        areaPrecioActualMisVentas.setEditable(false);
+        areaTiempoRestanteMisVentas.setEditable(false);
+        areaVendidoA.setEditable(false);
+        areaTelefonoAcabadas.setEditable(false);
+        areaCorreoAcabadas.setEditable(false);
+        areaPreciodeVenta.setEditable(false);
+
 ////////////////////////////////AREA COMPRAR UN PRODUCTO////////////////////////////////////////////////////////////////
 
         // comprar un producto Creacion area de Texto
@@ -416,6 +426,12 @@ public class CatShopView {
         catshop.add(areaPrecioActual);
         catshop.add(areaOferta);
 
+        //comprar un producto no editar el TextArea
+        areaName.setEditable(false);
+        areaDescripcionProduc.setEditable(false);
+        areaVendedor.setEditable(false);
+        areaPrecioActual.setEditable(false);
+
 ////////////////////////////////AREA MIS COMPRAS EN CURSO///////////////////////////////////////////////////////////////
 
         // mis compras en curso area de Texto
@@ -446,9 +462,14 @@ public class CatShopView {
         catshop.add(areaPrecioActualApuestaMas);
         catshop.add(areaPrecioActualEstasGanando);
 
+        //mis compras en curso no editar el TextArea
+        areaPrecioActualApuestaMas.setEditable(false);
+        areaPrecioActualEstasGanando.setEditable(false);
+
+
 ////////////////////////////////AREA MIS COMPRAS ACABADAS///////////////////////////////////////////////////////////////
 
-        // mis compras en curso area de Texto
+        //mis compras acabadas area de Texto
         modelComprasGanadas = new DefaultListModel<>();
         listaGane = new JList<>(modelComprasGanadas);
         modelComprasPerdidas = new DefaultListModel<>();
@@ -458,7 +479,7 @@ public class CatShopView {
         areaPrecioGane = new JTextArea();
         areaPrecioPerdi = new JTextArea();
 
-        //mis compras en curso Tamaño del area de Texto con borde negro
+        //mis compras acabadas Tamaño del area de Texto con borde negro
         listaGane.setBounds(950, 510, 200, 65);
         listaGane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaTelefonoGane.setBounds(950,635, 200, 20);
@@ -472,7 +493,7 @@ public class CatShopView {
         areaPrecioPerdi.setBounds(1160,605, 200, 20);
         areaPrecioPerdi.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        //mis compras en curso Añado area de Texto
+        //mis compras acabadas Añado area de Texto
         catshop.add(listaGane);
         catshop.add(listaPerdi);
         catshop.add(areaTelefonoGane);
@@ -480,6 +501,11 @@ public class CatShopView {
         catshop.add(areaPrecioGane);
         catshop.add(areaPrecioPerdi);
 
+        //mis compras acabadas no editar el TextArea
+        areaTelefonoGane.setEditable(false);
+        areaCorreoGane.setEditable(false);
+        areaPrecioGane.setEditable(false);
+        areaPrecioPerdi.setEditable(false);
 
 //////////////////////////////////ETIQUETAS REGISTRAR USUARIO///////////////////////////////////////////////////////////
 
