@@ -46,6 +46,24 @@ public class CatShopView {
     //comprar un producto botones
     Button botonMandarOferta;
 
+    //boton actualizar Producto
+    Button botonActualizarProducto;
+
+    //boton actualizar Mis Ventas
+    Button botonActualizarMisVentas;
+
+    //boton actualizar Compra de Producto
+    Button botonActualizarComprarProducto;
+
+    //boton actualizar Mis comprasen curso
+    Button botonActualizarComprasEnCurso;
+
+    //boton actualizar Compras Acabadas
+    Button botonActualizarComprasAcabadas;
+
+    //boton actualizar Extra
+    Button botonActualizarExtra;
+
 ////////////////////////////////////////////////////////////////////////////
 
     // registrar usuario area
@@ -215,14 +233,52 @@ public class CatShopView {
 /////////////////////////////BOTONES MIS COMPRAS EN CURSO///////////////////////////////////////////////////////////////
 
         //mis compras en curso botones
-        botonApostarMas = new Button("Ofertar");
+        botonApostarMas = new Button("Oferta");
 
         //mis compras en cursov tamaño y color de botones
-        botonApostarMas.setBounds(510, 650, 100, 20);
+        botonApostarMas.setBounds(510, 645, 110, 35);
         botonApostarMas.setForeground(Color.gray);
 
         //mis compras en curso añado botones
         catshop.add(botonApostarMas);
+
+/////////////////////////////BOTONES Para Actualizar////////////////////////////////////////////////////////////////////
+
+        //actualizar botones
+        botonActualizarProducto = new Button("Actualizar Producto");
+        botonActualizarMisVentas = new Button("Actualizar Mis Ventas");
+        botonActualizarComprarProducto = new Button("Actualizar Comprar Poducto");
+        botonActualizarComprasEnCurso = new Button("Actualizar Compras en Curso");
+        botonActualizarComprasAcabadas = new Button("Actualizar Compras Acabadas");
+        botonActualizarExtra = new Button("Actualizar Extra");
+
+        //actualizar en curso tamaño y color de botones
+        botonActualizarProducto.setBounds(5, 150, 190, 35);
+        botonActualizarProducto.setForeground(Color.gray);
+        botonActualizarMisVentas.setBounds(5, 200, 190, 35);
+        botonActualizarMisVentas.setForeground(Color.gray);
+        botonActualizarComprarProducto.setBounds(5, 250, 190, 35);
+        botonActualizarComprarProducto.setForeground(Color.gray);
+        botonActualizarComprasEnCurso.setBounds(205, 150, 210, 35);
+        botonActualizarComprasEnCurso.setForeground(Color.gray);
+        botonActualizarComprasAcabadas.setBounds(205, 200, 210, 35);
+        botonActualizarComprasAcabadas.setForeground(Color.gray);
+        botonActualizarExtra.setBounds(205, 250, 210, 35);
+        botonActualizarExtra.setForeground(Color.gray);
+
+        //mis compras en curso añado botones
+        catshop.add(botonActualizarProducto);
+        botonActualizarProducto.setVisible(false);
+        catshop.add(botonActualizarMisVentas);
+        botonActualizarMisVentas.setVisible(false);
+        catshop.add(botonActualizarComprarProducto);
+        botonActualizarComprarProducto.setVisible(false);
+        catshop.add(botonActualizarComprasEnCurso);
+        botonActualizarComprasEnCurso.setVisible(false);
+        catshop.add(botonActualizarComprasAcabadas);
+        botonActualizarComprasAcabadas.setVisible(false);
+        catshop.add(botonActualizarExtra);
+        botonActualizarExtra.setVisible(false);
 
 
 ////////////////////////////////AREA REGISTRAR USUARIO//////////////////////////////////////////////////////////////////
@@ -599,7 +655,7 @@ public class CatShopView {
         //titulo Tamaño de etiqueta y tipo y tamaño de letra
         etiquetaCatShop.setBounds(650,10,350,45);
         etiquetaCatShop.setFont(fondo1);
-        etiquetaCatShop.setForeground(Color.GREEN);
+        etiquetaCatShop.setForeground(Color.orange);
         etiquetaRegistrarUsuario.setBounds(10, -5, 400, 200);
         etiquetaRegistrarUsuario.setFont(fondo2);
         etiquetaVenderunProducto.setBounds(490, -5,200,200);
@@ -799,6 +855,12 @@ public class CatShopView {
         areaNombreUsuario.setVisible(false);
         etiquetaNombreUsuario.setVisible(false);
         botonConectarse.setVisible(false);
+        botonActualizarProducto.setVisible(true);
+        botonActualizarMisVentas.setVisible(true);
+        botonActualizarComprarProducto.setVisible(true);
+        botonActualizarComprasEnCurso.setVisible(true);
+        botonActualizarComprasAcabadas.setVisible(true);
+        botonActualizarExtra.setVisible(true);
     }
 
     public void updateListComprasPossibles(ArrayList<Producto> prod) {
