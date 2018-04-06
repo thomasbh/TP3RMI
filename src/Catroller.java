@@ -88,7 +88,7 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
                     view.offerDeclined();
                 } else {
                     view.offerAccepted();
-                    view.addEstasGanandoProduct(view.getSelectedProduct());
+                    //view.addEstasGanandoProduct(view.getSelectedProduct());
                 }
             } catch (RemoteException e1) {
                 System.err.println("Hubo un error al mandar la oferta.");
@@ -126,7 +126,7 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
                     view.offerDeclined();
                 } else {
                     view.offerAccepted();
-                    view.addEstasGanandoProduct(view.getSelectedProduct());
+                    //view.addEstasGanandoProduct(view.getSelectedProduct());
                 }
             } catch (RemoteException e1) {
                 System.err.println("Hubo un error al agregar su contraoferta");
@@ -167,10 +167,6 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
         }
     }
 
-    public void addProductoToCatalogo(Producto p) {
-        view.addProductoAlCatalogo(p);
-    }
-
     public void update(String reason, Producto p) throws RemoteException {
         if (reason.equals("AddProductoAlCatalogo"))
             view.addProductoAlCatalogo(p);
@@ -188,7 +184,6 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
             view.addProductoPerdido(p);
         else if (reason.equals("ProductoExpirado"))
             view.removeProductoDelCatalogo(p);
-
     }
 
 }

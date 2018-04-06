@@ -233,7 +233,7 @@ public class CatShopView {
 /////////////////////////////BOTONES MIS COMPRAS EN CURSO///////////////////////////////////////////////////////////////
 
         //mis compras en curso botones
-        botonApostarMas = new Button("Oferta");
+        botonApostarMas = new Button("Mandar contraoferta");
 
         //mis compras en cursov tamaño y color de botones
         botonApostarMas.setBounds(510, 645, 110, 35);
@@ -716,11 +716,18 @@ public class CatShopView {
     public void asignarActionListener(ActionListener controlador) {
         botonConectarse.addActionListener(controlador);
         botonVender.addActionListener(controlador);
+        botonMandarOferta.addActionListener(controlador);
+        botonApostarMas.addActionListener(controlador);
     }
 
     public void asignarListSelectionListener(ListSelectionListener controlador) {
         listaVentasEnCurso.addListSelectionListener(controlador);
         listaVentasAcabadas.addListSelectionListener(controlador);
+        listaProductosCatalogo.addListSelectionListener(controlador);
+        listadeApuestaMas.addListSelectionListener(controlador);
+        listadeEstasGanando.addListSelectionListener(controlador);
+        listaGane.addListSelectionListener(controlador);
+        listaPerdi.addListSelectionListener(controlador);
     }
 
     public Producto getSelectedProduct() {

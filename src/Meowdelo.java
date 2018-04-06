@@ -52,7 +52,7 @@ public class Meowdelo implements ServerInterface {
             if (!productos.isEmpty()) {
                 for (Object o : productos.values()) {
                     Producto p = (Producto) o;
-                    sendThisNewProduct(p);
+                    user.getHisInterface().update("AddProductoAlCatalogo", p);
                 }
             }
             return true;
@@ -168,13 +168,6 @@ public class Meowdelo implements ServerInterface {
             return true;
         } else {
             return false;
-        }
-    }
-
-    public void sendThisNewProduct(Producto p) throws RemoteException {
-        for (ClientInterface clientInterface : callbackMe) {
-            System.out.println("Coming here");
-            clientInterface.addProductoToCatalogo(p);
         }
     }
 
