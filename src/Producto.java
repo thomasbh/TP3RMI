@@ -78,6 +78,7 @@ public class Producto implements Serializable {
 
         if (monto > precioActual) {
             precioActual = monto;
+            System.out.println("Nuevo precio: " + precioActual);
             return true;
         } else
             return false;

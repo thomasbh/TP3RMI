@@ -94,16 +94,16 @@ public class CatShopView {
     //comprar un Producto
 
     JList<String> listaProductosCatalogo;
-    JTextArea areaName;
+    JTextArea areaProductNameCatalog;
     JTextArea areaDescripcionProduc;
     JTextArea areaVendedor;
     JTextArea areaPrecioActual;
-    JTextArea areaOferta;
+    JTextArea areaMandarOferta;
 
     //Mis compras en curso
     JList<String> listadeApuestaMas;
     JList<String> listadeEstasGanando;
-    JTextArea areaMandarOferta;
+    JTextArea areaMandarContraOferta;
     JTextArea areaPrecioActualApuestaMas;
     JTextArea areaPrecioActualEstasGanando;
 
@@ -398,36 +398,36 @@ public class CatShopView {
         // comprar un producto Creacion area de Texto
         modelCatalogoProductos = new DefaultListModel<>();
         listaProductosCatalogo = new JList<>(modelCatalogoProductos);
-        areaName = new JTextArea();
+        areaProductNameCatalog = new JTextArea();
         areaDescripcionProduc = new JTextArea();
         areaVendedor = new JTextArea();
-        areaOferta = new JTextArea();
+        areaMandarOferta = new JTextArea();
         areaPrecioActual = new JTextArea();
 
         //comprar un producto  Tamaño del area de Texto con borde negro
         listaProductosCatalogo.setBounds(45, 485, 200, 65);
         listaProductosCatalogo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaName.setBounds(115, 575, 200, 20);
-        areaName.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaProductNameCatalog.setBounds(115, 575, 200, 20);
+        areaProductNameCatalog.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaDescripcionProduc.setBounds(115, 605, 200, 20);
         areaDescripcionProduc.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaVendedor.setBounds(115,635, 200, 20);
         areaVendedor.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaPrecioActual.setBounds(115,665, 200, 20);
         areaPrecioActual.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaOferta.setBounds(50,705, 100, 25);
-        areaOferta.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaMandarOferta.setBounds(50, 705, 100, 25);
+        areaMandarOferta.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         //comprar un producto Añado area de Texto
         catshop.add(listaProductosCatalogo);
-        catshop.add(areaName);
+        catshop.add(areaProductNameCatalog);
         catshop.add(areaDescripcionProduc);
         catshop.add(areaVendedor);
         catshop.add(areaPrecioActual);
-        catshop.add(areaOferta);
+        catshop.add(areaMandarOferta);
 
         //comprar un producto no editar el TextArea
-        areaName.setEditable(false);
+        areaProductNameCatalog.setEditable(false);
         areaDescripcionProduc.setEditable(false);
         areaVendedor.setEditable(false);
         areaPrecioActual.setEditable(false);
@@ -439,15 +439,15 @@ public class CatShopView {
         listadeApuestaMas = new JList<>(modelApuestaMas);
         modelEstasGanando = new DefaultListModel<>();
         listadeEstasGanando = new JList<>(modelEstasGanando);
-        areaMandarOferta = new JTextArea();
+        areaMandarContraOferta = new JTextArea();
         areaPrecioActualApuestaMas = new JTextArea();
         areaPrecioActualEstasGanando = new JTextArea();
 
         //mis compras en curso Tamaño del area de Texto con borde negro
         listadeApuestaMas.setBounds(410, 510, 200, 65);
         listadeApuestaMas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaMandarOferta.setBounds(410,650, 90, 20);
-        areaMandarOferta.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        areaMandarContraOferta.setBounds(410, 650, 90, 20);
+        areaMandarContraOferta.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         areaPrecioActualApuestaMas.setBounds(410,605, 200, 20);
         areaPrecioActualApuestaMas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         listadeEstasGanando.setBounds(620, 510, 200, 65);
@@ -458,7 +458,7 @@ public class CatShopView {
         //mis compras en curso Añado area de Texto
         catshop.add(listadeApuestaMas);
         catshop.add(listadeEstasGanando);
-        catshop.add(areaMandarOferta);
+        catshop.add(areaMandarContraOferta);
         catshop.add(areaPrecioActualApuestaMas);
         catshop.add(areaPrecioActualEstasGanando);
 
@@ -713,12 +713,16 @@ public class CatShopView {
 
     }
 
+    // ===================BUTTONS ACTION LISTENERS======================
+
     public void asignarActionListener(ActionListener controlador) {
         botonConectarse.addActionListener(controlador);
         botonVender.addActionListener(controlador);
         botonMandarOferta.addActionListener(controlador);
         botonApostarMas.addActionListener(controlador);
     }
+
+    // =================== LIST ACTION LISTENERS =======================
 
     public void asignarListSelectionListener(ListSelectionListener controlador) {
         listaVentasEnCurso.addListSelectionListener(controlador);
@@ -730,9 +734,8 @@ public class CatShopView {
         listaPerdi.addListSelectionListener(controlador);
     }
 
-    public Producto getSelectedProduct() {
-        return selectedProduct;
-    }
+
+    // ================SETTERS TO UPDATE VIEW====================
 
     public void setSelectedProduct(String area, Producto p) {
         System.out.println("Selected this product " + p.getNombre());
@@ -752,7 +755,7 @@ public class CatShopView {
                 areaVendidoA.setText("Lo sentimos, nadie quiso comprar su " + p.getNombre());
             }
         } else if (area.equals("Catalogo")) {
-            areaName.setText(p.getNombre());
+            areaProductNameCatalog.setText(p.getNombre());
             areaDescripcionProduc.setText(p.getDescripcion());
             areaVendedor.setText(p.getVendedor().getApodo());
             areaPrecioActual.setText(String.valueOf(p.getPrecioActual()));
@@ -769,6 +772,8 @@ public class CatShopView {
         }
     }
 
+
+    // ================ USER RELATED GETTERS ======================
 
     public Usuario getCurrentUser() {
         return currentUser;
@@ -798,7 +803,9 @@ public class CatShopView {
         return areaNombreUsuario.getText();
     }
 
-    public String getProductName() {
+    // ================ SELLING RELATED GETTERS =======================
+
+    public String getSellingProductName() {
         return areaVenderProductName.getText();
     }
 
@@ -814,12 +821,24 @@ public class CatShopView {
         return Float.parseFloat(areaVenderPrecioInicial.getText());
     }
 
-    public float getMontoContraOferta() {
-        return Float.parseFloat(areaMandarOferta.getText());
+    // ==================== CATALOG RELATED GETTERS =====================
+
+    public String getSelectedProductOfCatalog() {
+        return areaProductNameCatalog.getText();
     }
 
     public float getMontoOferta() {
-        return Float.parseFloat(areaOferta.getText());
+        return Float.parseFloat(areaMandarOferta.getText());
+    }
+
+    // =================== APUESTA MAS RELATED GETTERS ==================
+
+    public float getMontoContraOferta() {
+        return Float.parseFloat(areaMandarContraOferta.getText());
+    }
+
+    public String getSelectedProductOfApuestaMas() {
+        return listadeApuestaMas.getSelectedValue();
     }
 
     public JList getListaVentasEnCurso() {
@@ -849,6 +868,7 @@ public class CatShopView {
     public JList<String> getListaPerdi() {
         return listaPerdi;
     }
+
 
     // ==============================================
     // =========SUCCESS OR ERROR MESSAGES============

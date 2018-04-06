@@ -67,7 +67,7 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
                 e1.printStackTrace();
             }
         } else if (e.getActionCommand().equals("Vender")) {
-            Producto prod = new Producto(view.getProductName(), view.getProductDesc(), view.getTiempoVenta(), view.getProductInitialPrice(), view.getCurrentUser());
+            Producto prod = new Producto(view.getSellingProductName(), view.getProductDesc(), view.getTiempoVenta(), view.getProductInitialPrice(), view.getCurrentUser());
             System.out.println("Enters here");
             try {
                 if (!model.ventaPermitida(prod)) {
@@ -82,7 +82,13 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
             }
 
         } else if (e.getActionCommand().equals("Mandar oferta")) {
-            Oferta oferta = new Oferta(view.getCurrentUser(), view.getSelectedProduct(), view.getMontoOferta());
+            Oferta oferta = null;
+            try {
+                oferta = new Oferta(view.getCurrentUser(), model.getThisProduct(view.getSelectedProductOfCatalog()), view.getMontoOferta());
+            } catch (RemoteException e1) {
+                System.err.println("No fue possible crear la oferta.");
+                e1.printStackTrace();
+            }
             try {
                 if (!model.ofertaAceptada(oferta)) {
                     view.offerDeclined();
@@ -120,7 +126,13 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
             }
             view.updateListApuestaMas(tienesQueApostarMas);
         } else if (e.getActionCommand().equals("Mandar contraoferta")) {
-            Oferta oferta = new Oferta(view.getCurrentUser(), view.getSelectedProduct(), view.getMontoContraOferta());
+            Oferta oferta = null;
+            try {
+                oferta = new Oferta(view.getCurrentUser(), model.getThisProduct(view.getSelectedProductOfApuestaMas()), view.getMontoContraOferta());
+            } catch (RemoteException e1) {
+                System.err.println("No fue possible crear la contraoferta.");
+                e1.printStackTrace();
+            }
             try {
                 if (!model.ofertaAceptada(oferta)) {
                     view.offerDeclined();

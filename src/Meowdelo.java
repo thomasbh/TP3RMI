@@ -73,9 +73,49 @@ public class Meowdelo implements ServerInterface {
     }
 
     public synchronized boolean ofertaAceptada(Oferta oferta) throws RemoteException {
-
         // A CAMBIAR
-        if (productos.containsValue(oferta.getProducto())) {
+        for (Object o : productos.values()) {
+            Producto p = (Producto) o;
+            System.out.println("Precio actual del producto de la hashtable: " + p.getPrecioActual());
+            System.out.println("Precio actual del producto vinculado a la oferta: " + oferta.getProducto().getPrecioActual());
+            if (oferta.getProducto().getNombre().equals(p.getNombre())) {
+                p = oferta.getProducto();
+
+                if (p.actualizaPrecio(oferta.getMontoOferta())) {
+                    System.out.println("Precio actual del producto de la hashtable: " + p.getPrecioActual());
+                    System.out.println("Precio actual del producto vinculado a la oferta: " + oferta.getProducto().getPrecioActual());
+
+                    for (Object key : productos.keySet()) {
+                        String s = (String) key;
+                        if (s.equals(p.getNombre())) {
+                            productos.replace(key, p);
+                        }
+
+                    }
+
+
+                    p.addOferta(oferta);
+
+                    if (ofertas.containsKey(p.getNombre())) {
+                        ofertas.replace(p.getNombre(), oferta);
+                    } else {
+                        ofertas.put(p.getNombre(), oferta);
+                    }
+                    updateAfterSendingAnOffer(oferta);
+
+                    return true;
+
+                } else
+
+                    return false;
+
+            }
+            // if product name doesn't even exist, which is weird
+        }
+        return false;
+    }
+        /*
+        if (productos.containsKey(oferta.getProducto().getNombre())) {
 
             Producto prod = oferta.getProducto();
 
@@ -98,17 +138,27 @@ public class Meowdelo implements ServerInterface {
 
         } else
 
-            return false;
-    }
+            return false;*/
 
     // regresa un producto en la lista de objetos en venta o ya vendido
 
     public Producto getThisProduct(String productName) {
-        Producto wanted;
-        if (productos.containsKey(productName))
-            wanted = (Producto) productos.get(productName);
-        else
-            wanted = (Producto) oldProductos.get(productName);
+        Producto wanted = null;
+        String existingProductName = null;
+        for (Object key : productos.keySet()) {
+            existingProductName = (String) key;
+            System.out.println("Nombre producto en la lista: " + existingProductName);
+            System.out.println("Nombre producto a checar: " + productName);
+            if (existingProductName.equals(productName))
+                wanted = (Producto) productos.get(key);
+        }
+        if (wanted == null) {
+            for (Object key : oldProductos.keySet()) {
+                existingProductName = (String) key;
+                if (existingProductName.equals(productName))
+                    wanted = (Producto) oldProductos.get(key);
+            }
+        }
         return wanted;
     }
 
@@ -186,15 +236,21 @@ public class Meowdelo implements ServerInterface {
     public void updateAfterSendingAnOffer(Oferta oferta) throws RemoteException {
         for (Object o : usuarios.values()) {
             Usuario u = (Usuario) o;
+            System.out.println("Usuario analizado: " + u.getApodo());
+            System.out.println("Vendedor del producto: " + oferta.getProducto().getVendedor().getApodo());
+            System.out.println("Ganador actual: " + oferta.getCompradorPotencial().getApodo());
             if (oferta.getProducto().getVendedor().getApodo().equals(u.getApodo()))
                 u.getHisInterface().update("NewOfferOnOneOfYourProducts", oferta.getProducto());
-            else if (oferta.getCompradorPotencial().getApodo().equals(u))
+            else if (oferta.getCompradorPotencial().getApodo().equals(u.getApodo()))
                 u.getHisInterface().update("AddEstasGanando", oferta.getProducto());
             else {
-                //if (oferta.getProducto().getUsuariosInteresados().contains(u)) {
-                for (Usuario interesado : oferta.getProducto().getUsuariosInteresados()) {
-                    if (interesado.getApodo().equals(u.getApodo()))
-                        u.getHisInterface().update("AddApuestaMas", oferta.getProducto());
+                if (!oferta.getProducto().getUsuariosInteresados().isEmpty()) {
+                    for (Usuario interesado : oferta.getProducto().getUsuariosInteresados()) {
+                        System.out.println("Apodo del intersado nuevamente perdedor: " + interesado.getApodo());
+                        System.out.println("Apodo del comprador potencial: " + oferta.getCompradorPotencial().getApodo());
+                        if (!interesado.getApodo().equals(oferta.getCompradorPotencial().getApodo()))
+                            u.getHisInterface().update("AddApuestaMas", oferta.getProducto());
+                    }
                 }
             }
         }
