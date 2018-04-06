@@ -175,7 +175,7 @@ public class Meowdelo implements ServerInterface {
     public void updateAfterSellingAProduct(Producto p) throws RemoteException {
         for (Object o : usuarios.values()) {
             Usuario u = (Usuario) o;
-            if (p.getVendedor() == u)
+            if (p.getVendedor().getApodo().equals(u.getApodo()))
                 u.getHisInterface().update("AddVentaProd", p);
             else
                 u.getHisInterface().update("AddProductoAlCatalogo", p);
