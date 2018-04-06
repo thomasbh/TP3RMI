@@ -221,7 +221,7 @@ public class CatShopView {
 /////////////////////////////BOTONES COMPRAR UN PRODUCTO ///////////////////////////////////////////////////////////////
 
         //comprar un producto botones
-        botonMandarOferta = new Button("Mandar Oferta");
+        botonMandarOferta = new Button("Mandar oferta");
 
         //vender producto tamaño y color de botones
         botonMandarOferta.setBounds(185, 700, 110, 35);

@@ -74,6 +74,7 @@ public class Meowdelo implements ServerInterface {
 
     public synchronized boolean ofertaAceptada(Oferta oferta) throws RemoteException {
 
+        // A CAMBIAR
         if (productos.containsValue(oferta.getProducto())) {
 
             Producto prod = oferta.getProducto();
