@@ -3,15 +3,19 @@ import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class Meowdelo implements ServerInterface {
 
-    //Hashtable ventasEnCurso;
-    //Hashtable ventasAcabadas;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     Hashtable ofertas;
     Hashtable usuarios;
     Hashtable productos;
     private ArrayList<ClientInterface> callbackMe;
+    Hashtable oldProductos;
 
     public Meowdelo() {
 
@@ -39,13 +43,18 @@ public class Meowdelo implements ServerInterface {
         callbackMe.add(cltint);
     }
 
-
-    public synchronized boolean registrarUsuario(Usuario user) {
+    public synchronized boolean registrarUsuario(Usuario user) throws RemoteException {
 
         if (!usuarios.containsKey(user.getApodo())) {
 
             System.out.println("Agregando un nuevo usuario: " + user.getNombre());
             usuarios.put(user.getApodo(), user);
+            if (!productos.isEmpty()) {
+                for (Object o : productos.values()) {
+                    Producto p = (Producto) o;
+                    sendThisNewProduct(p);
+                }
+            }
             return true;
 
         } else
@@ -53,19 +62,17 @@ public class Meowdelo implements ServerInterface {
             return false;
     }
 
-    public synchronized boolean ventaPermitida(Producto producto) {
+    public synchronized boolean ventaPermitida(Producto producto) throws RemoteException {
         if (!productos.containsKey(producto.getNombre())) {
-
             System.out.println("Agregando un nuevo producto: " + producto.getNombre());
             productos.put(producto.getNombre(), producto);
+            updateAfterSellingAProduct(producto);
             return true;
-
         } else
-
             return false;
     }
 
-    public synchronized boolean ofertaAceptada(Oferta oferta) {
+    public synchronized boolean ofertaAceptada(Oferta oferta) throws RemoteException {
 
         if (productos.containsValue(oferta.getProducto())) {
 
@@ -74,11 +81,13 @@ public class Meowdelo implements ServerInterface {
             if (prod.actualizaPrecio(oferta.getMontoOferta())) {
 
                 prod.addOferta(oferta);
-                if (ofertas.contains(prod.getNombre())) {
+
+                if (ofertas.containsKey(prod.getNombre())) {
                     ofertas.replace(prod.getNombre(), oferta);
                 } else {
                     ofertas.put(prod.getNombre(), oferta);
                 }
+                updateAfterSendingAnOffer(oferta);
 
                 return true;
 
@@ -91,8 +100,14 @@ public class Meowdelo implements ServerInterface {
             return false;
     }
 
-    public Producto getThisProduct(String name) {
-        Producto wanted = (Producto) productos.get(name);
+    // regresa un producto en la lista de objetos en venta o ya vendido
+
+    public Producto getThisProduct(String productName) {
+        Producto wanted;
+        if (productos.containsKey(productName))
+            wanted = (Producto) productos.get(productName);
+        else
+            wanted = (Producto) oldProductos.get(productName);
         return wanted;
     }
 
@@ -154,5 +169,68 @@ public class Meowdelo implements ServerInterface {
         } else {
             return false;
         }
+    }
+
+    public void sendThisNewProduct(Producto p) throws RemoteException {
+        for (ClientInterface clientInterface : callbackMe) {
+            System.out.println("Coming here");
+            clientInterface.addProductoToCatalogo(p);
+        }
+    }
+
+
+    public void updateAfterSellingAProduct(Producto p) throws RemoteException {
+        for (Object o : usuarios.values()) {
+            Usuario u = (Usuario) o;
+            if (p.getVendedor() == u)
+                u.getHisInterface().update("AddVentaProd", p);
+            else
+                u.getHisInterface().update("AddProductoAlCatalogo", p);
+        }
+    }
+
+    public void updateAfterSendingAnOffer(Oferta oferta) throws RemoteException {
+        for (Object o : usuarios.values()) {
+            Usuario u = (Usuario) o;
+            if (oferta.getProducto().getVendedor() == u)
+                u.getHisInterface().update("NewOfferOnOneOfYourProducts", oferta.getProducto());
+            else if (oferta.getCompradorPotencial() == u)
+                u.getHisInterface().update("AddEstasGanando", oferta.getProducto());
+            else if (oferta.getProducto().getUsuariosInteresados().contains(u)) {
+                u.getHisInterface().update("AddApuestaMas", oferta.getProducto());
+            }
+        }
+    }
+
+
+    public void updateProductList() {
+        final Runnable runnable = () -> {
+            if (!productos.isEmpty()) {
+                for (Object o : productos.values()) {
+                    Producto p = (Producto) o;
+                    if (p.getLimite().compareTo(Calendar.getInstance()) >= 0) {
+                        oldProductos.put(p.getNombre(), p);
+                        p.setGanador();
+                        for (Object objusuario : usuarios.values()) {
+                            Usuario u = (Usuario) objusuario;
+                            try {
+                                if (p.getVendedor() == u)
+                                    u.getHisInterface().update("AddVentaAcabada", p);
+                                else if (p.getGanador() == u)
+                                    u.getHisInterface().update("AddProductoGanado", p);
+                                else if (p.getUsuariosInteresados().contains(u))
+                                    u.getHisInterface().update("AddProductoPerdido", p);
+                                else
+                                    u.getHisInterface().update("ProductoExpirado", p);
+                            } catch (RemoteException e) {
+                                System.err.println("Hubo un problema al actualizar la lista de los productos.");
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        final ScheduledFuture<?> scheduledFuture = scheduler.scheduleAtFixedRate(runnable, 5, 1, TimeUnit.SECONDS);
     }
 }

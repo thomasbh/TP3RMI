@@ -37,6 +37,8 @@ public interface ServerInterface extends Remote {
 
     boolean ofertaAceptada(Oferta oferta) throws RemoteException;
 
+    void sendThisNewProduct(Producto p) throws RemoteException;
+
     ArrayList<Producto> obtieneCatalogoActivo() throws RemoteException;
 
     ArrayList<Producto> obtieneProductosExpirados() throws RemoteException;

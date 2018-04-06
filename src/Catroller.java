@@ -3,7 +3,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.rmi.NotBoundException;
 import java.util.ArrayList;
 
 import java.rmi.registry.LocateRegistry;
@@ -17,6 +16,7 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
     //Meowdelo model;
     static CatShopView view;
     private ServerInterface model;
+    static ClientInterface myInterface;
 
     public Catroller(CatShopView v, Meowdelo m) {
         model = m;
@@ -38,9 +38,8 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
             Catroller catroller = new Catroller(view = new CatShopView(), model);
             view.asignarActionListener(catroller);
             view.asignarListSelectionListener(catroller);
-            model.register(catroller);
-            ClientInterface cltint = (ClientInterface) UnicastRemoteObject.exportObject(catroller, 0);
-            registry.bind("Callback", cltint);
+            myInterface = (ClientInterface) UnicastRemoteObject.exportObject(catroller, 0);
+            model.register(myInterface);
             System.out.println("Client ready and registered");
         } catch (Exception e) {
 
@@ -54,7 +53,7 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
         if (e.getActionCommand().equals("Salir")) {
             System.exit(1);
         } else if (e.getActionCommand().equals("Conectarse")) {
-            Usuario user = new Usuario(view.getRealName(), view.getUserDireccion(), view.getUserCorreo(), view.getUserTelefono(), view.getUserApodo());
+            Usuario user = new Usuario(view.getRealName(), view.getUserDireccion(), view.getUserCorreo(), view.getUserTelefono(), view.getUserApodo(), myInterface);
             try {
                 if (!model.registrarUsuario(user)) {
                     view.errorCreatingUser();
@@ -75,7 +74,7 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
                     view.ventaRefused();
                 } else {
                     view.ventaAccepted();
-                    view.addSellingProduct(prod);
+                    //view.addSellingProduct(prod);
                 }
             } catch (RemoteException e1) {
                 System.err.println("Hubo un error al poner a la venta el producto.");
@@ -141,18 +140,55 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
         JList<String> list = (JList<String>) e.getSource();
         String item = list.getSelectedValue();
         System.out.println("Value changed");
-        if (list == view.getListaVentasEnCurso())
-            if (item != null) {
-                System.out.println(item);
-                Producto prod = null;
-                try {
-                    prod = model.getThisProduct(item);
-                } catch (RemoteException e1) {
-                    System.err.println("Hubo un problema recuperando el Producto " + item);
-                    e1.printStackTrace();
-                }
-                view.setSelectedSellingProduct(prod); //use selectedProduct to uddate only selected info
+        if (item != null) {
+            System.out.println(item);
+            Producto prod = null;
+            try {
+                prod = model.getThisProduct(item);
+            } catch (RemoteException e1) {
+                System.err.println("Hubo un problema recuperando el Producto " + item);
+                e1.printStackTrace();
             }
+            if (list == view.getListaVentasEnCurso())
+                view.setSelectedProduct("Mis ventas en curso", prod); //use selectedProduct to uddate only selected info
+            else if (list == view.getListaVentasAcabadas())
+                view.setSelectedProduct("Acabadas", prod);
+            else if (list == view.getListaProductosCatalogo())
+                view.setSelectedProduct("Catalogo", prod);
+            else if (list == view.getListadeEstasGanando())
+                view.setSelectedProduct("Ganando", prod);
+            else if (list == view.getListadeApuestaMas())
+                view.setSelectedProduct("Perdiendo", prod);
+                // implement from here
+            else if (list == view.getListaGane())
+                view.setSelectedProduct("Gane", prod);
+            else if (list == view.getListaPerdi())
+                view.setSelectedProduct("Perdi", prod);
+        }
+    }
+
+    public void addProductoToCatalogo(Producto p) {
+        view.addProductoAlCatalogo(p);
+    }
+
+    public void update(String reason, Producto p) throws RemoteException {
+        if (reason.equals("AddProductoAlCatalogo"))
+            view.addProductoAlCatalogo(p);
+        else if (reason.equals("AddEstasGanando"))
+            view.addEstasGanandoProduct(p);
+        else if (reason.equals("AddApuestaMas"))
+            view.addApuestaMas(p);
+        else if (reason.equals("AddVentaProd"))
+            view.addSellingProduct(p);
+        else if (reason.equals("AddVentaAcabada"))
+            view.addVentaAcabada(p);
+        else if (reason.equals("AddProductoGanado"))
+            view.addProductoGanado(p);
+        else if (reason.equals("AddProductoPerdido"))
+            view.addProductoPerdido(p);
+        else if (reason.equals("ProductoExpirado"))
+            view.removeProductoDelCatalogo(p);
+
     }
 
 }

@@ -727,18 +727,41 @@ public class CatShopView {
         return selectedProduct;
     }
 
-    public void setSelectedProduct(Producto prod) {
-        selectedProduct = prod;
+    public void setSelectedProduct(String area, Producto p) {
+        System.out.println("Selected this product " + p.getNombre());
+        if (area.equals("Mis ventas en curso")) {
+            areaNombreMisVentas.setText(p.getNombre());
+            areaDescripcionMisVentas.setText(p.getDescripcion());
+            areaPrecioActualMisVentas.setText(String.valueOf(p.getPrecioActual()));
+            String date = sdf.format(p.getLimite().getTime());
+            areaTiempoRestanteMisVentas.setText(date);
+        } else if (area.equals("Acabadas")) {
+            if (p.getGanador() != null) {
+                areaVendidoA.setText(p.getGanador().getApodo());
+                areaTelefonoAcabadas.setText(p.getGanador().getTelefono());
+                areaCorreoAcabadas.setText(p.getGanador().getCorreo());
+                areaPreciodeVenta.setText(String.valueOf(p.getPrecioActual()));
+            } else {
+                areaVendidoA.setText("Lo sentimos, nadie quiso comprar su " + p.getNombre());
+            }
+        } else if (area.equals("Catalogo")) {
+            areaName.setText(p.getNombre());
+            areaDescripcionProduc.setText(p.getDescripcion());
+            areaVendedor.setText(p.getVendedor().getApodo());
+            areaPrecioActual.setText(String.valueOf(p.getPrecioActual()));
+        } else if (area.equals("Ganando")) {
+            areaPrecioActualEstasGanando.setText(String.valueOf(p.getPrecioActual()));
+        } else if (area.equals("Perdiendo")) {
+            areaPrecioActualApuestaMas.setText(String.valueOf(p.getPrecioActual()));
+        } else if (area.equals("Gane")) {
+            areaTelefonoGane.setText(p.getVendedor().getTelefono());
+            areaCorreoGane.setText(p.getVendedor().getCorreo());
+            areaPrecioGane.setText(String.valueOf(p.getPrecioActual()));
+        } else if (area.equals("Perdi")) {
+            areaPrecioPerdi.setText(String.valueOf(p.getPrecioActual()));
+        }
     }
 
-    public void setSelectedSellingProduct(Producto p) {
-        System.out.println("Selected this product " + p.getNombre());
-        areaNombreMisVentas.setText(p.getNombre());
-        areaDescripcionMisVentas.setText(p.getDescripcion());
-        areaPrecioActualMisVentas.setText(String.valueOf(p.getPrecioActual()));
-        String date = sdf.format(p.getLimite().getTime());
-        areaTiempoRestanteMisVentas.setText(date);
-    }
 
     public Usuario getCurrentUser() {
         return currentUser;
@@ -785,12 +808,11 @@ public class CatShopView {
     }
 
     public float getMontoContraOferta() {
-        return 200.0f;
+        return Float.parseFloat(areaMandarOferta.getText());
     }
-    // TO IMPLEMENT PROPERLY
 
     public float getMontoOferta() {
-        return 200.0f;
+        return Float.parseFloat(areaOferta.getText());
     }
 
     public JList getListaVentasEnCurso() {
@@ -821,7 +843,9 @@ public class CatShopView {
         return listaPerdi;
     }
 
-    // SUCCESS OR ERROR MESSAGES
+    // ==============================================
+    // =========SUCCESS OR ERROR MESSAGES============
+    // ==============================================
 
     public void errorCreatingUser() {
         JOptionPane.showMessageDialog(catshop,
@@ -881,6 +905,9 @@ public class CatShopView {
         areaNombreUsuario.setVisible(false);
         etiquetaNombreUsuario.setVisible(false);
         botonConectarse.setVisible(false);
+
+        // show botones
+
         botonActualizarProducto.setVisible(true);
         botonActualizarMisVentas.setVisible(true);
         botonActualizarComprarProducto.setVisible(true);
@@ -889,20 +916,60 @@ public class CatShopView {
         botonActualizarExtra.setVisible(true);
     }
 
-    public void updateListComprasPossibles(ArrayList<Producto> prod) {
-        for (Producto p : prod) {
-            modelCatalogoProductos.addElement(p.getNombre());
-        }
+    // =========================================================
+    // ======================UPDATE LISTAS======================
+    // =========================================================
+
+
+    // ====================LISTAS MIS VENTAS====================
+
+    public void addSellingProduct(Producto prod) {
+        modelMisVentasEnCurso.addElement(prod.getNombre());
     }
 
+    public void addVentaAcabada(Producto producto) {
+        modelMisVentasEnCurso.remove(modelMisVentasEnCurso.indexOf(producto.getNombre()));
+        modelMisVentasAcabadas.addElement(producto.getNombre());
+    }
+
+    // ======================LISTA DEL CATALOGO======================
+
+    public void addProductoAlCatalogo(Producto prod) {
+        modelCatalogoProductos.addElement(prod.getNombre());
+    }
+
+    public void removeProductoDelCatalogo(Producto prod) {
+        modelCatalogoProductos.remove(modelCatalogoProductos.indexOf(prod));
+    }
+
+    // ==================LISTAS MIS COMPRAS EN CURSO==================
+
     public void addEstasGanandoProduct(Producto p) {
+        if (modelApuestaMas.contains(p.getNombre()))
+            modelApuestaMas.remove(modelApuestaMas.indexOf(p.getNombre()));
+        if (modelCatalogoProductos.contains(p.getNombre()))
+            modelCatalogoProductos.remove(modelCatalogoProductos.indexOf(p.getNombre()));
         modelEstasGanando.addElement(p.getNombre());
     }
 
-    public String[] getEstasGanando() {
-        String[] arrayGanando = (String[]) modelEstasGanando.toArray();
-        return arrayGanando;
+    public void addApuestaMas(Producto p) {
+        modelEstasGanando.remove(modelEstasGanando.indexOf(p.getNombre()));
+        modelApuestaMas.addElement(p.getNombre());
     }
+
+    // ==================LISTAS MIS COMPRAS ACABADAS========================
+
+    public void addProductoGanado(Producto p) {
+        modelEstasGanando.remove(modelEstasGanando.indexOf(p.getNombre()));
+        modelComprasGanadas.addElement(p.getNombre());
+    }
+
+    public void addProductoPerdido(Producto p) {
+        modelApuestaMas.remove(modelApuestaMas.indexOf(p.getNombre()));
+        modelComprasPerdidas.addElement(p.getNombre());
+    }
+
+    // ================OLD METHODS (WITH BUTONS)===========================
 
     public void updateListApuestaMas(ArrayList<String> prodToAdd) {
         for (String s : prodToAdd) {
@@ -910,8 +977,15 @@ public class CatShopView {
         }
     }
 
-    public void addSellingProduct(Producto prod) {
-        modelMisVentasEnCurso.addElement(prod.getNombre());
+    public void updateListComprasPossibles(ArrayList<Producto> prod) {
+        for (Producto p : prod) {
+            modelCatalogoProductos.addElement(p.getNombre());
+        }
+    }
+
+    public String[] getEstasGanando() {
+        String[] arrayGanando = (String[]) modelEstasGanando.toArray();
+        return arrayGanando;
     }
 
 }

@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface ClientInterface extends Remote {
 
-    //void updateListaX(List x) throws RemoteException;
+    void addProductoToCatalogo(Producto p) throws RemoteException;
+
+    void update(String reason, Producto p) throws RemoteException;
 }

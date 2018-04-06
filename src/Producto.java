@@ -1,6 +1,6 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class Producto implements Serializable {
 
@@ -12,7 +12,7 @@ public class Producto implements Serializable {
     private float precioActual;
     private Usuario vendedor;
     private Usuario ganador;
-    private List<Oferta> ofertas;
+    private ArrayList<Oferta> ofertas = new ArrayList<>();
 
     public Producto(String nombre, String descripcion, int tiempoAgregar, float precio, Usuario vendedor) {
         this.nombre = nombre;
@@ -33,7 +33,7 @@ public class Producto implements Serializable {
         return limite;
     }
 
-    public List<Oferta> getOfertas() {
+    public ArrayList<Oferta> getOfertas() {
         return ofertas;
     }
 
@@ -62,12 +62,15 @@ public class Producto implements Serializable {
     }
 
     public void setGanador() {
-        Oferta lastoferta = ofertas.get(ofertas.size() - 1);
-        ganador = lastoferta.getCompradorPotencial();
+        Oferta lastoferta;
+        if (!ofertas.isEmpty()) {
+            lastoferta = ofertas.get(ofertas.size() - 1);
+            ganador = lastoferta.getCompradorPotencial();
+        } else
+            ganador = null;
     }
 
     public void addOferta(Oferta oferta) {
-        //Oferta oferta = new Oferta(usuario, this, precio);
         ofertas.add(oferta);
     }
 
@@ -79,4 +82,19 @@ public class Producto implements Serializable {
         } else
             return false;
     }
+
+    public Usuario getLastUsuario() {
+        return ofertas.get(ofertas.size() - 1).getCompradorPotencial();
+    }
+
+    public ArrayList<Usuario> getUsuariosInteresados() {
+        ArrayList<Usuario> usuariosInteresados = new ArrayList<>();
+        for (Oferta oferta : ofertas) {
+            if (!usuariosInteresados.contains(oferta.getCompradorPotencial())) {
+                usuariosInteresados.add(oferta.getCompradorPotencial());
+            }
+        }
+        return usuariosInteresados;
+    }
+
 }
