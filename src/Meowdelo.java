@@ -185,12 +185,16 @@ public class Meowdelo implements ServerInterface {
     public void updateAfterSendingAnOffer(Oferta oferta) throws RemoteException {
         for (Object o : usuarios.values()) {
             Usuario u = (Usuario) o;
-            if (oferta.getProducto().getVendedor() == u)
+            if (oferta.getProducto().getVendedor().getApodo().equals(u.getApodo()))
                 u.getHisInterface().update("NewOfferOnOneOfYourProducts", oferta.getProducto());
-            else if (oferta.getCompradorPotencial() == u)
+            else if (oferta.getCompradorPotencial().getApodo().equals(u))
                 u.getHisInterface().update("AddEstasGanando", oferta.getProducto());
-            else if (oferta.getProducto().getUsuariosInteresados().contains(u)) {
-                u.getHisInterface().update("AddApuestaMas", oferta.getProducto());
+            else {
+                //if (oferta.getProducto().getUsuariosInteresados().contains(u)) {
+                for (Usuario interesado : oferta.getProducto().getUsuariosInteresados()) {
+                    if (interesado.getApodo().equals(u.getApodo()))
+                        u.getHisInterface().update("AddApuestaMas", oferta.getProducto());
+                }
             }
         }
     }
@@ -207,14 +211,18 @@ public class Meowdelo implements ServerInterface {
                         for (Object objusuario : usuarios.values()) {
                             Usuario u = (Usuario) objusuario;
                             try {
-                                if (p.getVendedor() == u)
+                                if (p.getVendedor().getApodo().equals(u.getApodo()))
                                     u.getHisInterface().update("AddVentaAcabada", p);
-                                else if (p.getGanador() == u)
+                                else if (p.getGanador().getApodo().equals(u.getApodo()))
                                     u.getHisInterface().update("AddProductoGanado", p);
-                                else if (p.getUsuariosInteresados().contains(u))
-                                    u.getHisInterface().update("AddProductoPerdido", p);
-                                else
+                                else {
+                                    //if (p.getUsuariosInteresados().contains(u))
+                                    for (Usuario interesado : p.getUsuariosInteresados()) {
+                                        if (interesado.getApodo().equals(u.getApodo()))
+                                            u.getHisInterface().update("AddProductoPerdido", p);
+                                    }
                                     u.getHisInterface().update("ProductoExpirado", p);
+                                }
                             } catch (RemoteException e) {
                                 System.err.println("Hubo un problema al actualizar la lista de los productos.");
                                 e.printStackTrace();
