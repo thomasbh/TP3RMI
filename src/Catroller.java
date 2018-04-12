@@ -73,6 +73,7 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
                 if (!model.ventaPermitida(prod)) {
                     view.ventaRefused();
                 } else {
+                    view.cleanText("Vender");
                     view.ventaAccepted();
                     //view.addSellingProduct(prod);
                 }
@@ -93,11 +94,32 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
                 if (!model.ofertaAceptada(oferta)) {
                     view.offerDeclined();
                 } else {
+                    view.cleanText("Catalogo");
                     view.offerAccepted();
                     //view.addEstasGanandoProduct(view.getSelectedProduct());
                 }
             } catch (RemoteException e1) {
                 System.err.println("Hubo un error al mandar la oferta.");
+                e1.printStackTrace();
+            }
+        } else if (e.getActionCommand().equals("Mandar contraoferta")) {
+            Oferta oferta = null;
+            try {
+                oferta = new Oferta(view.getCurrentUser(), model.getThisProduct(view.getSelectedProductOfApuestaMas()), view.getMontoContraOferta());
+            } catch (RemoteException e1) {
+                System.err.println("No fue possible crear la contraoferta.");
+                e1.printStackTrace();
+            }
+            try {
+                if (!model.ofertaAceptada(oferta)) {
+                    view.offerDeclined();
+                } else {
+                    view.cleanText("ApuestaMas");
+                    view.offerAccepted();
+                    //view.addEstasGanandoProduct(view.getSelectedProduct());
+                }
+            } catch (RemoteException e1) {
+                System.err.println("Hubo un error al agregar su contraoferta");
                 e1.printStackTrace();
             }
         } else if (e.getActionCommand().equals("Actualizar lista productos a comprar")) {
@@ -125,25 +147,6 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
                 }
             }
             view.updateListApuestaMas(tienesQueApostarMas);
-        } else if (e.getActionCommand().equals("Mandar contraoferta")) {
-            Oferta oferta = null;
-            try {
-                oferta = new Oferta(view.getCurrentUser(), model.getThisProduct(view.getSelectedProductOfApuestaMas()), view.getMontoContraOferta());
-            } catch (RemoteException e1) {
-                System.err.println("No fue possible crear la contraoferta.");
-                e1.printStackTrace();
-            }
-            try {
-                if (!model.ofertaAceptada(oferta)) {
-                    view.offerDeclined();
-                } else {
-                    view.offerAccepted();
-                    //view.addEstasGanandoProduct(view.getSelectedProduct());
-                }
-            } catch (RemoteException e1) {
-                System.err.println("Hubo un error al agregar su contraoferta");
-                e1.printStackTrace();
-            }
         }
     }
 
@@ -153,7 +156,6 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
         String item = list.getSelectedValue();
         System.out.println("Value changed");
         if (item != null) {
-            System.out.println(item);
             Producto prod = null;
             try {
                 prod = model.getThisProduct(item);
@@ -162,7 +164,7 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
                 e1.printStackTrace();
             }
             if (list == view.getListaVentasEnCurso())
-                view.setSelectedProduct("Mis ventas en curso", prod); //use selectedProduct to uddate only selected info
+                view.setSelectedProduct("Mis ventas en curso", prod); //use selectedProduct to update only selected info
             else if (list == view.getListaVentasAcabadas())
                 view.setSelectedProduct("Acabadas", prod);
             else if (list == view.getListaProductosCatalogo())
@@ -171,7 +173,6 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
                 view.setSelectedProduct("Ganando", prod);
             else if (list == view.getListadeApuestaMas())
                 view.setSelectedProduct("Perdiendo", prod);
-                // implement from here
             else if (list == view.getListaGane())
                 view.setSelectedProduct("Gane", prod);
             else if (list == view.getListaPerdi())
@@ -179,7 +180,7 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
         }
     }
 
-    public void update(String reason, Producto p) throws RemoteException {
+    public void update(String reason, Producto p) {
         if (reason.equals("AddProductoAlCatalogo"))
             view.addProductoAlCatalogo(p);
         else if (reason.equals("AddEstasGanando"))
@@ -196,6 +197,8 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
             view.addProductoPerdido(p);
         else if (reason.equals("ProductoExpirado"))
             view.removeProductoDelCatalogo(p);
+        else if (reason.equals("NewOfferOnOneOfYourProducts"))
+            view.newOfferOnYourProduct(p);
     }
 
 }

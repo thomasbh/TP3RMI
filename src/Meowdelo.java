@@ -16,12 +16,14 @@ public class Meowdelo implements ServerInterface {
     Hashtable productos;
     private ArrayList<ClientInterface> callbackMe;
     Hashtable oldProductos;
+    boolean updateEnabled = false;
 
     public Meowdelo() {
 
         usuarios = new Hashtable();
         productos = new Hashtable();
         ofertas = new Hashtable();
+        oldProductos = new Hashtable();
         callbackMe = new ArrayList<>();
     }
 
@@ -67,6 +69,10 @@ public class Meowdelo implements ServerInterface {
             System.out.println("Agregando un nuevo producto: " + producto.getNombre());
             productos.put(producto.getNombre(), producto);
             updateAfterSellingAProduct(producto);
+            if (!updateEnabled) {
+                updateProductList();
+                updateEnabled = true;
+            }
             return true;
         } else
             return false;
@@ -76,24 +82,21 @@ public class Meowdelo implements ServerInterface {
         // A CAMBIAR
         for (Object o : productos.values()) {
             Producto p = (Producto) o;
-            System.out.println("Precio actual del producto de la hashtable: " + p.getPrecioActual());
-            System.out.println("Precio actual del producto vinculado a la oferta: " + oferta.getProducto().getPrecioActual());
+            //System.out.println("Precio actual del producto de la hashtable: " + p.getPrecioActual());
+            //System.out.println("Precio actual del producto vinculado a la oferta: " + oferta.getProducto().getPrecioActual());
             if (oferta.getProducto().getNombre().equals(p.getNombre())) {
                 p = oferta.getProducto();
 
                 if (p.actualizaPrecio(oferta.getMontoOferta())) {
-                    System.out.println("Precio actual del producto de la hashtable: " + p.getPrecioActual());
-                    System.out.println("Precio actual del producto vinculado a la oferta: " + oferta.getProducto().getPrecioActual());
+                    //System.out.println("Precio actual del producto de la hashtable: " + p.getPrecioActual());
+                    //System.out.println("Precio actual del producto vinculado a la oferta: " + oferta.getProducto().getPrecioActual());
 
                     for (Object key : productos.keySet()) {
                         String s = (String) key;
                         if (s.equals(p.getNombre())) {
                             productos.replace(key, p);
                         }
-
                     }
-
-
                     p.addOferta(oferta);
 
                     if (ofertas.containsKey(p.getNombre())) {
@@ -147,8 +150,6 @@ public class Meowdelo implements ServerInterface {
         String existingProductName = null;
         for (Object key : productos.keySet()) {
             existingProductName = (String) key;
-            System.out.println("Nombre producto en la lista: " + existingProductName);
-            System.out.println("Nombre producto a checar: " + productName);
             if (existingProductName.equals(productName))
                 wanted = (Producto) productos.get(key);
         }
@@ -234,22 +235,36 @@ public class Meowdelo implements ServerInterface {
     }
 
     public void updateAfterSendingAnOffer(Oferta oferta) throws RemoteException {
+        System.out.println("======== DEBUG AFTER SENDING OFFER ========");
         for (Object o : usuarios.values()) {
             Usuario u = (Usuario) o;
-            System.out.println("Usuario analizado: " + u.getApodo());
-            System.out.println("Vendedor del producto: " + oferta.getProducto().getVendedor().getApodo());
-            System.out.println("Ganador actual: " + oferta.getCompradorPotencial().getApodo());
-            if (oferta.getProducto().getVendedor().getApodo().equals(u.getApodo()))
+            System.out.println("USUARIO ANALIZADO = " + u.getApodo());
+            System.out.println("VENDEDOR = " + oferta.getProducto().getVendedor().getApodo());
+            System.out.println("NUEVO GANADOR (COMPRADOR POTENCIAL) = " + oferta.getCompradorPotencial().getApodo());
+            if (oferta.getProducto().getVendedor().getApodo().equals(u.getApodo())) {
+                System.out.println("Oye vendedor : " + u.getApodo());
                 u.getHisInterface().update("NewOfferOnOneOfYourProducts", oferta.getProducto());
-            else if (oferta.getCompradorPotencial().getApodo().equals(u.getApodo()))
+            } else if (oferta.getCompradorPotencial().getApodo().equals(u.getApodo())) {
+                System.out.println("Este usuario esta ganando: " + u.getApodo());
                 u.getHisInterface().update("AddEstasGanando", oferta.getProducto());
+            }
             else {
                 if (!oferta.getProducto().getUsuariosInteresados().isEmpty()) {
                     for (Usuario interesado : oferta.getProducto().getUsuariosInteresados()) {
-                        System.out.println("Apodo del intersado nuevamente perdedor: " + interesado.getApodo());
-                        System.out.println("Apodo del comprador potencial: " + oferta.getCompradorPotencial().getApodo());
-                        if (!interesado.getApodo().equals(oferta.getCompradorPotencial().getApodo()))
-                            u.getHisInterface().update("AddApuestaMas", oferta.getProducto());
+                        System.out.println("Apodo del intersado analizado (para entrar al ultimo if): " + interesado.getApodo());
+                        System.out.println("condition de l'if: " + !(interesado.getApodo().equals(oferta.getCompradorPotencial().getApodo())));
+                        if (interesado.getApodo().equals(u.getApodo())) {
+                            if (!(u.getApodo().equals(oferta.getCompradorPotencial().getApodo()))) {
+                                System.out.println("the interested user is the analized user + is NOT the winner");
+                                u.getHisInterface().update("AddApuestaMas", oferta.getProducto());
+                            }
+                        }
+
+                        /*if (!(interesado.getApodo().equals(oferta.getCompradorPotencial().getApodo()))) {
+                            System.out.println("The interested user is different from the last buyer " + u.getApodo());
+
+                        }*/
+
                     }
                 }
             }
@@ -262,23 +277,40 @@ public class Meowdelo implements ServerInterface {
             if (!productos.isEmpty()) {
                 for (Object o : productos.values()) {
                     Producto p = (Producto) o;
-                    if (p.getLimite().compareTo(Calendar.getInstance()) >= 0) {
+                    if (p.getLimite().compareTo(Calendar.getInstance()) <= 0) {
+                        productos.remove(p.getNombre());
                         oldProductos.put(p.getNombre(), p);
                         p.setGanador();
                         for (Object objusuario : usuarios.values()) {
                             Usuario u = (Usuario) objusuario;
+                            System.out.println("==========DEBUG=============");
+                            System.out.println("Usuario analizado = " + u.getApodo());
+                            System.out.println("Vendedor del producto = " + p.getVendedor().getApodo());
+                            System.out.println("Ganador del producto = " + p.getGanador().getApodo());
                             try {
-                                if (p.getVendedor().getApodo().equals(u.getApodo()))
+                                if (p.getVendedor().getApodo().equals(u.getApodo())) {
+                                    System.out.println("VENDEDOR OK");
                                     u.getHisInterface().update("AddVentaAcabada", p);
-                                else if (p.getGanador().getApodo().equals(u.getApodo()))
+                                } else if (p.getGanador().getApodo().equals(u.getApodo())) {
+                                    System.out.println("GANADOR OK");
                                     u.getHisInterface().update("AddProductoGanado", p);
+                                }
+
                                 else {
                                     //if (p.getUsuariosInteresados().contains(u))
+                                    boolean interesadoFound = false;
                                     for (Usuario interesado : p.getUsuariosInteresados()) {
-                                        if (interesado.getApodo().equals(u.getApodo()))
+                                        if (interesado.getApodo().equals(u.getApodo())) {
+                                            interesadoFound = true;
+                                            System.out.println("Perdedor OK = " + interesado.getApodo());
                                             u.getHisInterface().update("AddProductoPerdido", p);
+                                            break;
+                                        }
                                     }
-                                    u.getHisInterface().update("ProductoExpirado", p);
+                                    if (!interesadoFound) {
+                                        System.out.println("Otro usuario OK " + u.getApodo());
+                                        u.getHisInterface().update("ProductoExpirado", p);
+                                    }
                                 }
                             } catch (RemoteException e) {
                                 System.err.println("Hubo un problema al actualizar la lista de los productos.");

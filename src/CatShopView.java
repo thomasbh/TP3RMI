@@ -916,6 +916,14 @@ public class CatShopView {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public void newOfferOnYourProduct(Producto p) {
+        JOptionPane.showMessageDialog(catshop,
+                "Someone sent a new offer on your product:" + p.getNombre() +
+                        "Check the new price now!",
+                "Nueva oferta!",
+                JOptionPane.WARNING_MESSAGE);
+    }
+
     // UPDATE VIEW
 
     public void updateRegistrarUsuario() {
@@ -966,7 +974,7 @@ public class CatShopView {
     }
 
     public void removeProductoDelCatalogo(Producto prod) {
-        modelCatalogoProductos.remove(modelCatalogoProductos.indexOf(prod));
+        modelCatalogoProductos.remove(modelCatalogoProductos.indexOf(prod.getNombre()));
     }
 
     // ==================LISTAS MIS COMPRAS EN CURSO==================
@@ -988,6 +996,9 @@ public class CatShopView {
 
     public void addProductoGanado(Producto p) {
         modelEstasGanando.remove(modelEstasGanando.indexOf(p.getNombre()));
+        if (areaNombreMisVentas.getText().equals(p.getNombre())) {
+            cleanText("VentaEnCurso");
+        }
         modelComprasGanadas.addElement(p.getNombre());
     }
 
@@ -995,6 +1006,34 @@ public class CatShopView {
         modelApuestaMas.remove(modelApuestaMas.indexOf(p.getNombre()));
         modelComprasPerdidas.addElement(p.getNombre());
     }
+
+    // =========================================================
+    // ======================VACIAR CAMPOS======================
+    // =========================================================
+
+    public void cleanText(String textArea) {
+        if (textArea.equals("Vender")) {
+            areaVenderProductName.setText("");
+            areaVenderProductDescripcion.setText("");
+            areaVenderPrecioInicial.setText("");
+            areaVenderTiempoLimite.setText("");
+        } else if (textArea.equals("Catalogo")) {
+            areaProductNameCatalog.setText("");
+            areaDescripcionProduc.setText("");
+            areaVendedor.setText("");
+            areaPrecioActual.setText("");
+            areaMandarOferta.setText("");
+        } else if (textArea.equals("VentaEnCurso")) {
+            areaNombreMisVentas.setText("");
+            areaDescripcionMisVentas.setText("");
+            areaPrecioActualMisVentas.setText("");
+            areaTiempoRestanteMisVentas.setText("");
+        } else if (textArea.equals("ApuestaMas")) {
+            areaPrecioActualApuestaMas.setText("");
+            areaMandarContraOferta.setText("");
+        }
+    }
+
 
     // ================OLD METHODS (WITH BUTONS)===========================
 
@@ -1014,5 +1053,6 @@ public class CatShopView {
         String[] arrayGanando = (String[]) modelEstasGanando.toArray();
         return arrayGanando;
     }
+
 
 }
