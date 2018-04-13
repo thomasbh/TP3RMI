@@ -684,38 +684,46 @@ class CatShopView {
 
     public void setSelectedProduct(String area, Producto p) {
         System.out.println("Selected this product " + p.getNombre());
-        if (area.equals("Mis ventas en curso")) {
-            areaNombreMisVentas.setText(p.getNombre());
-            areaDescripcionMisVentas.setText(p.getDescripcion());
-            areaPrecioActualMisVentas.setText(String.valueOf(p.getPrecioActual()));
-            String date = sdf.format(p.getLimite().getTime());
-            areaTiempoRestanteMisVentas.setText(date);
-        } else if (area.equals("Acabadas")) {
-            if (p.getGanador() != null) {
-                areaVendidoA.setText("CONTACTO DEL COMPRADOR: \n" +
-                        "Nombre: " + p.getGanador().getApodo()
-                        + "\nDireccion: " + p.getGanador().getDireccion()
-                        + "\nTelefono: " + p.getGanador().getTelefono()
-                        + "\nCorreo: " + p.getGanador().getCorreo()
-                );
-            } else {
-                areaVendidoA.setText("Lo sentimos...\nNadie quiso comprar su: \n" + p.getNombre());
-            }
-        } else if (area.equals("Catalogo")) {
-            areaProductNameCatalog.setText(p.getNombre());
-            areaDescripcionProduc.setText(p.getDescripcion());
-            areaVendedor.setText(p.getVendedor().getApodo());
-            areaPrecioActual.setText(String.valueOf(p.getPrecioActual()));
-        } else if (area.equals("Ganando")) {
-            areaPrecioActualEstasGanando.setText(String.valueOf(p.getPrecioActual()));
-        } else if (area.equals("Perdiendo")) {
-            areaPrecioActualApuestaMas.setText(String.valueOf(p.getPrecioActual()));
-        } else if (area.equals("Gane")) {
-            areaTelefonoGane.setText(p.getVendedor().getTelefono());
-            areaCorreoGane.setText(p.getVendedor().getCorreo());
-            areaPrecioGane.setText(String.valueOf(p.getPrecioActual()));
-        } else if (area.equals("Perdi")) {
-            areaPrecioPerdi.setText(String.valueOf(p.getPrecioActual()));
+        switch (area) {
+            case "Mis ventas en curso":
+                areaNombreMisVentas.setText(p.getNombre());
+                areaDescripcionMisVentas.setText(p.getDescripcion());
+                areaPrecioActualMisVentas.setText(String.valueOf(p.getPrecioActual()));
+                String date = sdf.format(p.getLimite().getTime());
+                areaTiempoRestanteMisVentas.setText(date);
+                break;
+            case "Acabadas":
+                if (p.getGanador() != null) {
+                    areaVendidoA.setText("CONTACTO DEL COMPRADOR: \n" +
+                            "Nombre: " + p.getGanador().getApodo()
+                            + "\nDireccion: " + p.getGanador().getDireccion()
+                            + "\nTelefono: " + p.getGanador().getTelefono()
+                            + "\nCorreo: " + p.getGanador().getCorreo()
+                    );
+                } else {
+                    areaVendidoA.setText("Lo sentimos...\nNadie quiso comprar su: \n" + p.getNombre());
+                }
+                break;
+            case "Catalogo":
+                areaProductNameCatalog.setText(p.getNombre());
+                areaDescripcionProduc.setText(p.getDescripcion());
+                areaVendedor.setText(p.getVendedor().getApodo());
+                areaPrecioActual.setText(String.valueOf(p.getPrecioActual()));
+                break;
+            case "Ganando":
+                areaPrecioActualEstasGanando.setText(String.valueOf(p.getPrecioActual()));
+                break;
+            case "Perdiendo":
+                areaPrecioActualApuestaMas.setText(String.valueOf(p.getPrecioActual()));
+                break;
+            case "Gane":
+                areaTelefonoGane.setText(p.getVendedor().getTelefono());
+                areaCorreoGane.setText(p.getVendedor().getCorreo());
+                areaPrecioGane.setText(String.valueOf(p.getPrecioActual()));
+                break;
+            case "Perdi":
+                areaPrecioPerdi.setText(String.valueOf(p.getPrecioActual()));
+                break;
         }
     }
 
@@ -947,25 +955,30 @@ class CatShopView {
     // =========================================================
 
     public void cleanText(String textArea) {
-        if (textArea.equals("Vender")) {
-            areaVenderProductName.setText("");
-            areaVenderProductDescripcion.setText("");
-            areaVenderPrecioInicial.setText("");
-            areaVenderTiempoLimite.setText("");
-        } else if (textArea.equals("Catalogo")) {
-            areaProductNameCatalog.setText("");
-            areaDescripcionProduc.setText("");
-            areaVendedor.setText("");
-            areaPrecioActual.setText("");
-            areaMandarOferta.setText("");
-        } else if (textArea.equals("VentaEnCurso")) {
-            areaNombreMisVentas.setText("");
-            areaDescripcionMisVentas.setText("");
-            areaPrecioActualMisVentas.setText("");
-            areaTiempoRestanteMisVentas.setText("");
-        } else if (textArea.equals("ApuestaMas")) {
-            areaPrecioActualApuestaMas.setText("");
-            areaMandarContraOferta.setText("");
+        switch (textArea) {
+            case "Vender":
+                areaVenderProductName.setText("");
+                areaVenderProductDescripcion.setText("");
+                areaVenderPrecioInicial.setText("");
+                areaVenderTiempoLimite.setText("");
+                break;
+            case "Catalogo":
+                areaProductNameCatalog.setText("");
+                areaDescripcionProduc.setText("");
+                areaVendedor.setText("");
+                areaPrecioActual.setText("");
+                areaMandarOferta.setText("");
+                break;
+            case "VentaEnCurso":
+                areaNombreMisVentas.setText("");
+                areaDescripcionMisVentas.setText("");
+                areaPrecioActualMisVentas.setText("");
+                areaTiempoRestanteMisVentas.setText("");
+                break;
+            case "ApuestaMas":
+                areaPrecioActualApuestaMas.setText("");
+                areaMandarContraOferta.setText("");
+                break;
         }
     }
 
