@@ -8,94 +8,91 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 
-public class CatShopView {
+class CatShopView {
 
     //other
 
-    Usuario currentUser;
+    private Usuario currentUser;
     Producto selectedProduct;
-    DefaultListModel<String> modelMisVentasEnCurso;
-    DefaultListModel<String> modelMisVentasAcabadas;
-    DefaultListModel<String> modelCatalogoProductos;
-    DefaultListModel<String> modelApuestaMas;
-    DefaultListModel<String> modelEstasGanando;
-    DefaultListModel<String> modelComprasGanadas;
-    DefaultListModel<String> modelComprasPerdidas;
-    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+    private DefaultListModel<String> modelMisVentasEnCurso;
+    private DefaultListModel<String> modelMisVentasAcabadas;
+    private DefaultListModel<String> modelCatalogoProductos;
+    private DefaultListModel<String> modelApuestaMas;
+    private DefaultListModel<String> modelEstasGanando;
+    private DefaultListModel<String> modelComprasGanadas;
+    private DefaultListModel<String> modelComprasPerdidas;
+    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
     // window
 
-    JFrame catshop = new JFrame("CatShop");
+    private JFrame catshop = new JFrame("CatShop");
     //Con la variable Font pones tipo y tamaño de letra
-    Font fondo = new Font("Arial", Font.BOLD,15);
-    Font fondo1 = new Font("Arial", Font.BOLD, 35);
-    Font fondo2 = new Font("Arial", Font.BOLD, 20);
-    Font fondo3 = new Font("Arial", Font.BOLD, 18);
+    private Font fondo = new Font("Arial", Font.BOLD, 15);
+    private Font fondo1 = new Font("Arial", Font.BOLD, 35);
+    private Font fondo2 = new Font("Arial", Font.BOLD, 20);
+    private Font fondo3 = new Font("Arial", Font.BOLD, 18);
 
 
     //registrar usuario botones
-    Button botonConectarse;
+    private Button botonConectarse;
 
     //vender producto botones
-    Button botonVender;
+    private Button botonVender;
 
     // Mis compras en curso - Apuesta mas
-    Button botonApostarMas;
+    private Button botonApostarMas;
 
     //comprar un producto botones
-    Button botonMandarOferta;
+    private Button botonMandarOferta;
 
 
 ////////////////////////////////////////////////////////////////////////////
 
     // registrar usuario area
-    JTextArea areaRealName;
-    JTextArea areaDireccion;
-    JTextArea areaTelefono;
-    JTextArea areaCorreo;
-    JTextArea areaNombreUsuario;
+    private JTextArea areaRealName;
+    private JTextArea areaDireccion;
+    private JTextArea areaTelefono;
+    private JTextArea areaCorreo;
+    private JTextArea areaNombreUsuario;
 
     //vender producto area
-    JTextArea areaVenderProductName;
-    JTextArea areaVenderProductDescripcion;
-    JTextArea areaVenderTiempoLimite;
-    JTextArea areaVenderPrecioInicial;
+    private JTextArea areaVenderProductName;
+    private JTextArea areaVenderProductDescripcion;
+    private JTextArea areaVenderTiempoLimite;
+    private JTextArea areaVenderPrecioInicial;
 
     // mis ventas area
-    JList<String> listaVentasEnCurso;
-    JTextArea areaNombreMisVentas;
-    JTextArea areaDescripcionMisVentas;
-    JTextArea areaPrecioActualMisVentas;
-    JTextArea areaTiempoRestanteMisVentas;
-    JList<String> listaVentasAcabadas;
-    JTextArea areaVendidoA;
-    JTextArea areaTelefonoAcabadas;
-    JTextArea areaCorreoAcabadas;
-    JTextArea areaPreciodeVenta;
+    private JList<String> listaVentasEnCurso;
+    private JTextArea areaNombreMisVentas;
+    private JTextArea areaDescripcionMisVentas;
+    private JTextArea areaPrecioActualMisVentas;
+    private JTextArea areaTiempoRestanteMisVentas;
+    private JList<String> listaVentasAcabadas;
+    private JTextArea areaVendidoA;
 
     //comprar un Producto
 
-    JList<String> listaProductosCatalogo;
-    JTextArea areaProductNameCatalog;
-    JTextArea areaDescripcionProduc;
-    JTextArea areaVendedor;
-    JTextArea areaPrecioActual;
-    JTextArea areaMandarOferta;
+    private JList<String> listaProductosCatalogo;
+    private JTextArea areaProductNameCatalog;
+    private JTextArea areaDescripcionProduc;
+    private JTextArea areaVendedor;
+    private JTextArea areaPrecioActual;
+    private JTextArea areaMandarOferta;
 
     //Mis compras en curso
-    JList<String> listadeApuestaMas;
-    JList<String> listadeEstasGanando;
-    JTextArea areaMandarContraOferta;
-    JTextArea areaPrecioActualApuestaMas;
-    JTextArea areaPrecioActualEstasGanando;
+    private JList<String> listadeApuestaMas;
+    private JList<String> listadeEstasGanando;
+    private JTextArea areaMandarContraOferta;
+    private JTextArea areaPrecioActualApuestaMas;
+    private JTextArea areaPrecioActualEstasGanando;
 
     // Mis compras acabadas
-    JList<String> listaGane;
-    JList<String> listaPerdi;
-    JTextArea areaTelefonoGane;
-    JTextArea areaCorreoGane;
-    JTextArea areaPrecioGane;
-    JTextArea areaPrecioPerdi;
+    private JList<String> listaGane;
+    private JList<String> listaPerdi;
+    private JTextArea areaTelefonoGane;
+    private JTextArea areaCorreoGane;
+    private JTextArea areaPrecioGane;
+    private JTextArea areaPrecioPerdi;
 
 
 
@@ -103,59 +100,51 @@ public class CatShopView {
 ////////////////////////////////////////////////////////////////////////////
 
     //registrar usuario etiquetas
-    JLabel etiquetaUserName;
-    JLabel etiquetaDireccion;
-    JLabel etiquetaTelefono;
-    JLabel etiquetaCorreo;
-    JLabel etiquetaNombreUsuario;
+    private JLabel etiquetaUserName;
+    private JLabel etiquetaDireccion;
+    private JLabel etiquetaTelefono;
+    private JLabel etiquetaCorreo;
+    private JLabel etiquetaNombreUsuario;
 
     //vender un producto etiquetas
-    JLabel etiquetaNombre;
-    JLabel etiquetaDescripcion;
-    JLabel etiquetaTiempoimite;
-    JLabel etiquetaPrecio;
+    private JLabel etiquetaNombre;
+    private JLabel etiquetaDescripcion;
+    private JLabel etiquetaTiempoimite;
+    private JLabel etiquetaPrecio;
 
     //comprar un producto
-    JLabel etiquetaName;
-    JLabel etiquetaDescripcionProduc;
-    JLabel etiquetaVendedor;
-    JLabel etiquetaPrecioActual;
+    private JLabel etiquetaName;
+    private JLabel etiquetaDescripcionProduc;
+    private JLabel etiquetaVendedor;
+    private JLabel etiquetaPrecioActual;
 
     // mis compras en curso etiquetas
-    JLabel etiquetaApuestaMas;
-    JLabel etiquetaEstasGanando;
-    JLabel etiquetaPrecioActualApuestaMas;
-    JLabel etiquetaPrecioActualEstasGanando;
+    private JLabel etiquetaApuestaMas;
+    private JLabel etiquetaEstasGanando;
+    private JLabel etiquetaPrecioActualApuestaMas;
+    private JLabel etiquetaPrecioActualEstasGanando;
 
     //mis ventas etiquetas
-    JLabel etiquetaEnCurso;
-    JLabel etiquetaNombreMisVentas;
-    JLabel etiquetaDescripcionMisVentas;
-    JLabel etiquetaPrecioActualMisVentas;
-    JLabel etiquetaTiempoRestante;
-    JLabel etiquetaAcabadas;
-    JLabel etiquetaVendidoA;
-    JLabel etiquetaTelefonoAcabadas;
-    JLabel etiquetaCorreoAcabadas;
-    JLabel etiquetaPreciodeVenta;
+    private JLabel etiquetaEnCurso;
+    private JLabel etiquetaAcabadas;
 
     //mis compras acabadas
-    JLabel etiquetaGane;
-    JLabel etiquetaContactodelVendedor;
-    JLabel etiquetaTelefonodelVendedor;
-    JLabel etiquetaCorreodelVendedor;
-    JLabel etiquetaPrecioFinal;
-    JLabel etiquetaPerdi;
-    JLabel etiquetaVendidoAPrecio;
+    private JLabel etiquetaGane;
+    private JLabel etiquetaContactodelVendedor;
+    private JLabel etiquetaTelefonodelVendedor;
+    private JLabel etiquetaCorreodelVendedor;
+    private JLabel etiquetaPrecioFinal;
+    private JLabel etiquetaPerdi;
+    private JLabel etiquetaVendidoAPrecio;
 
     // titulos etiqueta
-    JLabel etiquetaCatShop;
-    JLabel etiquetaRegistrarUsuario;
-    JLabel etiquetaVenderunProducto;
-    JLabel etiquetaMisVentas;
-    JLabel etiquetaComprarunProducto;
-    JLabel etiquetaMisComprasenCurso;
-    JLabel etiquetaMisComprasAcabadas;
+    private JLabel etiquetaCatShop;
+    private JLabel etiquetaRegistrarUsuario;
+    private JLabel etiquetaVenderunProducto;
+    private JLabel etiquetaMisVentas;
+    private JLabel etiquetaComprarunProducto;
+    private JLabel etiquetaMisComprasenCurso;
+    private JLabel etiquetaMisComprasAcabadas;
 
 
     //fondo pantalla
@@ -165,7 +154,7 @@ public class CatShopView {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public CatShopView(){
+    CatShopView() {
 
         catshop.setSize(1450,1450);
         //catshop.getContentPane().setBackground(Color.white);
@@ -671,7 +660,7 @@ public class CatShopView {
 
     // ===================BUTTONS ACTION LISTENERS======================
 
-    public void asignarActionListener(ActionListener controlador) {
+    void asignarActionListener(ActionListener controlador) {
         botonConectarse.addActionListener(controlador);
         botonVender.addActionListener(controlador);
         botonMandarOferta.addActionListener(controlador);
@@ -680,7 +669,7 @@ public class CatShopView {
 
     // =================== LIST ACTION LISTENERS =======================
 
-    public void asignarListSelectionListener(ListSelectionListener controlador) {
+    void asignarListSelectionListener(ListSelectionListener controlador) {
         listaVentasEnCurso.addListSelectionListener(controlador);
         listaVentasAcabadas.addListSelectionListener(controlador);
         listaProductosCatalogo.addListSelectionListener(controlador);
@@ -693,135 +682,148 @@ public class CatShopView {
 
     // ================SETTERS TO UPDATE VIEW====================
 
-    public void setSelectedProduct(String area, Producto p) {
+    void setSelectedProduct(String area, Producto p) {
         System.out.println("Selected this product " + p.getNombre());
-        if (area.equals("Mis ventas en curso")) {
-            areaNombreMisVentas.setText(p.getNombre());
-            areaDescripcionMisVentas.setText(p.getDescripcion());
-            areaPrecioActualMisVentas.setText(String.valueOf(p.getPrecioActual()));
-            String date = sdf.format(p.getLimite().getTime());
-            areaTiempoRestanteMisVentas.setText(date);
-        } else if (area.equals("Acabadas")) {
-            if (p.getGanador() != null) {
-                areaVendidoA.setText(p.getGanador().getApodo());
-                areaTelefonoAcabadas.setText(p.getGanador().getTelefono());
-                areaCorreoAcabadas.setText(p.getGanador().getCorreo());
-                areaPreciodeVenta.setText(String.valueOf(p.getPrecioActual()));
-            } else {
-                areaVendidoA.setText("Lo sentimos, nadie quiso comprar su " + p.getNombre());
-            }
-        } else if (area.equals("Catalogo")) {
-            areaProductNameCatalog.setText(p.getNombre());
-            areaDescripcionProduc.setText(p.getDescripcion());
-            areaVendedor.setText(p.getVendedor().getApodo());
-            areaPrecioActual.setText(String.valueOf(p.getPrecioActual()));
-        } else if (area.equals("Ganando")) {
-            areaPrecioActualEstasGanando.setText(String.valueOf(p.getPrecioActual()));
-        } else if (area.equals("Perdiendo")) {
-            areaPrecioActualApuestaMas.setText(String.valueOf(p.getPrecioActual()));
-        } else if (area.equals("Gane")) {
-            areaTelefonoGane.setText(p.getVendedor().getTelefono());
-            areaCorreoGane.setText(p.getVendedor().getCorreo());
-            areaPrecioGane.setText(String.valueOf(p.getPrecioActual()));
-        } else if (area.equals("Perdi")) {
-            areaPrecioPerdi.setText(String.valueOf(p.getPrecioActual()));
+        switch (area) {
+            case "Mis ventas en curso":
+                areaNombreMisVentas.setText(p.getNombre());
+                areaDescripcionMisVentas.setText(p.getDescripcion());
+                areaPrecioActualMisVentas.setText(String.valueOf(p.getPrecioActual()));
+                String date = sdf.format(p.getLimite().getTime());
+                areaTiempoRestanteMisVentas.setText(date);
+                break;
+            case "Acabadas":
+                if (p.getGanador() != null) {
+                    areaVendidoA.setText("CONTACTO DEL COMPRADOR: \n" +
+                            "Nombre: " + p.getGanador().getApodo()
+                            + "\nDireccion: " + p.getGanador().getDireccion()
+                            + "\nTelefono: " + p.getGanador().getTelefono()
+                            + "\nCorreo: " + p.getGanador().getCorreo()
+                    );
+                    //areaTelefonoAcabadas.setText(p.getGanador().getTelefono());
+                    //areaCorreoAcabadas.setText(p.getGanador().getCorreo());
+                    //areaPreciodeVenta.setText(String.valueOf(p.getPrecioActual()));
+                } else {
+                    areaVendidoA.setText("Lo sentimos, nadie quiso comprar su " + p.getNombre());
+                }
+                break;
+            case "Catalogo":
+                areaProductNameCatalog.setText(p.getNombre());
+                areaDescripcionProduc.setText(p.getDescripcion());
+                areaVendedor.setText(p.getVendedor().getApodo());
+                areaPrecioActual.setText(String.valueOf(p.getPrecioActual()));
+                break;
+            case "Ganando":
+                areaPrecioActualEstasGanando.setText(String.valueOf(p.getPrecioActual()));
+                break;
+            case "Perdiendo":
+                areaPrecioActualApuestaMas.setText(String.valueOf(p.getPrecioActual()));
+                break;
+            case "Gane":
+                areaTelefonoGane.setText(p.getVendedor().getTelefono());
+                areaCorreoGane.setText(p.getVendedor().getCorreo());
+                areaPrecioGane.setText(String.valueOf(p.getPrecioActual()));
+                break;
+            case "Perdi":
+                areaPrecioPerdi.setText(String.valueOf(p.getPrecioActual()));
+                break;
         }
     }
 
 
     // ================ USER RELATED GETTERS ======================
 
-    public Usuario getCurrentUser() {
+    Usuario getCurrentUser() {
         return currentUser;
     }
 
-    public void setCurrentUser(Usuario user) {
+    void setCurrentUser(Usuario user) {
         currentUser = user;
     }
 
-    public String getRealName() {
+    String getRealName() {
         return areaRealName.getText();
     }
 
-    public String getUserDireccion() {
+    String getUserDireccion() {
         return areaDireccion.getText();
     }
 
-    public String getUserCorreo() {
+    String getUserCorreo() {
         return areaCorreo.getText();
     }
 
-    public String getUserTelefono() {
+    String getUserTelefono() {
         return areaTelefono.getText();
     }
 
-    public String getUserApodo() {
+    String getUserApodo() {
         return areaNombreUsuario.getText();
     }
 
     // ================ SELLING RELATED GETTERS =======================
 
-    public String getSellingProductName() {
+    String getSellingProductName() {
         return areaVenderProductName.getText();
     }
 
-    public String getProductDesc() {
+    String getProductDesc() {
         return areaVenderProductDescripcion.getText();
     }
 
-    public int getTiempoVenta() {
+    int getTiempoVenta() {
         return Integer.parseInt(areaVenderTiempoLimite.getText());
     }
 
-    public float getProductInitialPrice() {
+    float getProductInitialPrice() {
         return Float.parseFloat(areaVenderPrecioInicial.getText());
     }
 
     // ==================== CATALOG RELATED GETTERS =====================
 
-    public String getSelectedProductOfCatalog() {
+    String getSelectedProductOfCatalog() {
         return areaProductNameCatalog.getText();
     }
 
-    public float getMontoOferta() {
+    float getMontoOferta() {
         return Float.parseFloat(areaMandarOferta.getText());
     }
 
     // =================== APUESTA MAS RELATED GETTERS ==================
 
-    public float getMontoContraOferta() {
+    float getMontoContraOferta() {
         return Float.parseFloat(areaMandarContraOferta.getText());
     }
 
-    public String getSelectedProductOfApuestaMas() {
+    String getSelectedProductOfApuestaMas() {
         return listadeApuestaMas.getSelectedValue();
     }
 
-    public JList getListaVentasEnCurso() {
+    JList getListaVentasEnCurso() {
         return listaVentasEnCurso;
     }
 
-    public JList<String> getListaVentasAcabadas() {
+    JList<String> getListaVentasAcabadas() {
         return listaVentasAcabadas;
     }
 
-    public JList<String> getListaProductosCatalogo() {
+    JList<String> getListaProductosCatalogo() {
         return listaProductosCatalogo;
     }
 
-    public JList<String> getListadeApuestaMas() {
+    JList<String> getListadeApuestaMas() {
         return listadeApuestaMas;
     }
 
-    public JList<String> getListadeEstasGanando() {
+    JList<String> getListadeEstasGanando() {
         return listadeEstasGanando;
     }
 
-    public JList<String> getListaGane() {
+    JList<String> getListaGane() {
         return listaGane;
     }
 
-    public JList<String> getListaPerdi() {
+    JList<String> getListaPerdi() {
         return listaPerdi;
     }
 
@@ -830,49 +832,49 @@ public class CatShopView {
     // =========SUCCESS OR ERROR MESSAGES============
     // ==============================================
 
-    public void errorCreatingUser() {
+    void errorCreatingUser() {
         JOptionPane.showMessageDialog(catshop,
                 "Este apodo ya existe, favor de seleccionar otro",
                 "Error creating user",
                 JOptionPane.ERROR_MESSAGE);
     }
 
-    public void userSuccessfullyCreated() {
+    void userSuccessfullyCreated() {
         JOptionPane.showMessageDialog(catshop,
                 "Usuario creado y conectado a la tienda",
                 "User successfully created",
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void offerDeclined() {
+    void offerDeclined() {
         JOptionPane.showMessageDialog(catshop,
                 "Lo sentimos, no se pudo realizar esta oferta.",
                 "Offer declined",
                 JOptionPane.ERROR_MESSAGE);
     }
 
-    public void offerAccepted() {
+    void offerAccepted() {
         JOptionPane.showMessageDialog(catshop,
                 "Su oferta ha sido aceptada.",
                 "Offer accepted",
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void ventaRefused() {
+    void ventaRefused() {
         JOptionPane.showMessageDialog(catshop,
                 "Lo sentimos, no se puede vender este producto con tal nombre.",
                 "Venta no aceptada",
                 JOptionPane.ERROR_MESSAGE);
     }
 
-    public void ventaAccepted() {
+    void ventaAccepted() {
         JOptionPane.showMessageDialog(catshop,
                 "Su producto está en el mercado.",
                 "Venta aceptada",
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void newOfferOnYourProduct(Producto p) {
+    void newOfferOnYourProduct(Producto p) {
         JOptionPane.showMessageDialog(catshop,
                 "Someone sent a new offer on your product:" + p.getNombre() +
                         "Check the new price now!",
@@ -882,7 +884,7 @@ public class CatShopView {
 
     // UPDATE VIEW
 
-    public void updateRegistrarUsuario() {
+    void updateRegistrarUsuario() {
         System.out.println(currentUser.getApodo());
         etiquetaRegistrarUsuario.setText("Bienvenido a CatShop, " + currentUser.getApodo() + " :)");
         etiquetaUserName.setVisible(false);
@@ -899,35 +901,30 @@ public class CatShopView {
 
     }
 
-    // =========================================================
-    // ======================UPDATE LISTAS======================
-    // =========================================================
-
-
     // ====================LISTAS MIS VENTAS====================
 
-    public void addSellingProduct(Producto prod) {
+    void addSellingProduct(Producto prod) {
         modelMisVentasEnCurso.addElement(prod.getNombre());
     }
 
-    public void addVentaAcabada(Producto producto) {
+    void addVentaAcabada(Producto producto) {
         modelMisVentasEnCurso.remove(modelMisVentasEnCurso.indexOf(producto.getNombre()));
         modelMisVentasAcabadas.addElement(producto.getNombre());
     }
 
     // ======================LISTA DEL CATALOGO======================
 
-    public void addProductoAlCatalogo(Producto prod) {
+    void addProductoAlCatalogo(Producto prod) {
         modelCatalogoProductos.addElement(prod.getNombre());
     }
 
-    public void removeProductoDelCatalogo(Producto prod) {
+    void removeProductoDelCatalogo(Producto prod) {
         modelCatalogoProductos.remove(modelCatalogoProductos.indexOf(prod.getNombre()));
     }
 
     // ==================LISTAS MIS COMPRAS EN CURSO==================
 
-    public void addEstasGanandoProduct(Producto p) {
+    void addEstasGanandoProduct(Producto p) {
         if (modelApuestaMas.contains(p.getNombre()))
             modelApuestaMas.remove(modelApuestaMas.indexOf(p.getNombre()));
         if (modelCatalogoProductos.contains(p.getNombre()))
@@ -935,14 +932,14 @@ public class CatShopView {
         modelEstasGanando.addElement(p.getNombre());
     }
 
-    public void addApuestaMas(Producto p) {
+    void addApuestaMas(Producto p) {
         modelEstasGanando.remove(modelEstasGanando.indexOf(p.getNombre()));
         modelApuestaMas.addElement(p.getNombre());
     }
 
-    // ==================LISTAS MIS COMPRAS ACABADAS========================
+    // ==================LISTAS MIS COMPRAS ACABADAS============
 
-    public void addProductoGanado(Producto p) {
+    void addProductoGanado(Producto p) {
         modelEstasGanando.remove(modelEstasGanando.indexOf(p.getNombre()));
         if (areaNombreMisVentas.getText().equals(p.getNombre())) {
             cleanText("VentaEnCurso");
@@ -950,7 +947,7 @@ public class CatShopView {
         modelComprasGanadas.addElement(p.getNombre());
     }
 
-    public void addProductoPerdido(Producto p) {
+    void addProductoPerdido(Producto p) {
         modelApuestaMas.remove(modelApuestaMas.indexOf(p.getNombre()));
         modelComprasPerdidas.addElement(p.getNombre());
     }
@@ -959,48 +956,32 @@ public class CatShopView {
     // ======================VACIAR CAMPOS======================
     // =========================================================
 
-    public void cleanText(String textArea) {
-        if (textArea.equals("Vender")) {
-            areaVenderProductName.setText("");
-            areaVenderProductDescripcion.setText("");
-            areaVenderPrecioInicial.setText("");
-            areaVenderTiempoLimite.setText("");
-        } else if (textArea.equals("Catalogo")) {
-            areaProductNameCatalog.setText("");
-            areaDescripcionProduc.setText("");
-            areaVendedor.setText("");
-            areaPrecioActual.setText("");
-            areaMandarOferta.setText("");
-        } else if (textArea.equals("VentaEnCurso")) {
-            areaNombreMisVentas.setText("");
-            areaDescripcionMisVentas.setText("");
-            areaPrecioActualMisVentas.setText("");
-            areaTiempoRestanteMisVentas.setText("");
-        } else if (textArea.equals("ApuestaMas")) {
-            areaPrecioActualApuestaMas.setText("");
-            areaMandarContraOferta.setText("");
+    void cleanText(String textArea) {
+        switch (textArea) {
+            case "Vender":
+                areaVenderProductName.setText("");
+                areaVenderProductDescripcion.setText("");
+                areaVenderPrecioInicial.setText("");
+                areaVenderTiempoLimite.setText("");
+                break;
+            case "Catalogo":
+                areaProductNameCatalog.setText("");
+                areaDescripcionProduc.setText("");
+                areaVendedor.setText("");
+                areaPrecioActual.setText("");
+                areaMandarOferta.setText("");
+                break;
+            case "VentaEnCurso":
+                areaNombreMisVentas.setText("");
+                areaDescripcionMisVentas.setText("");
+                areaPrecioActualMisVentas.setText("");
+                areaTiempoRestanteMisVentas.setText("");
+                break;
+            case "ApuestaMas":
+                areaPrecioActualApuestaMas.setText("");
+                areaMandarContraOferta.setText("");
+                break;
         }
     }
-
-
-    // ================OLD METHODS (WITH BUTONS)===========================
-
-    public void updateListApuestaMas(ArrayList<String> prodToAdd) {
-        for (String s : prodToAdd) {
-            modelApuestaMas.addElement(s);
-        }
-    }
-
-    public void updateListComprasPossibles(ArrayList<Producto> prod) {
-        for (Producto p : prod) {
-            modelCatalogoProductos.addElement(p.getNombre());
-        }
-    }
-
-    public String[] getEstasGanando() {
-        String[] arrayGanando = (String[]) modelEstasGanando.toArray();
-        return arrayGanando;
-    }
-
 
 }
