@@ -33,12 +33,10 @@ public class CatShopView {
 
 
     //registrar usuario botones
-    Button botonSalir;
     Button botonConectarse;
 
     //vender producto botones
     Button botonVender;
-    Button botonVaciarCamposVender;
 
     // Mis compras en curso - Apuesta mas
     Button botonApostarMas;
@@ -181,7 +179,7 @@ public class CatShopView {
     public CatShopView(){
 
         catshop.setSize(1450,1450);
-        catshop.getContentPane().setBackground(Color.lightGray);
+        catshop.getContentPane().setBackground(Color.white);
         catshop.setLocationRelativeTo(null);
         catshop.setLayout(null);
         catshop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -190,33 +188,28 @@ public class CatShopView {
 
         // registrar usuario creacion botones
         botonConectarse = new Button("Conectarse");
-        botonSalir = new Button("Eliminar");
 
         //registrar usuario tamaño y color de botones
-        botonConectarse.setBounds(15, 325, 110, 35);
-        botonConectarse.setForeground(Color.gray);
-        botonSalir.setBounds(185, 325, 110, 35);
-        botonSalir.setForeground(Color.gray);
+        botonConectarse.setBounds(190, 325, 110, 35);
+        botonConectarse.setForeground(Color.BLACK);
+
 
         //registrar usuario Añado boton
-        catshop.add(botonSalir);
+
         catshop.add(botonConectarse);
 
 /////////////////////////////BOTONES VENDER PRODUCTO////////////////////////////////////////////////////////////////////
 
         //vender producto botones
         botonVender = new Button("Vender");
-        botonVaciarCamposVender = new Button("Elimina");
+
 
         //vender producto tamaño y color de botones
-        botonVender.setBounds(490, 325, 110, 35);
-        botonVender.setForeground(Color.gray);
-        botonVaciarCamposVender.setBounds(700, 325, 110, 35);
-        botonVaciarCamposVender.setForeground(Color.gray);
+        botonVender.setBounds(710, 325, 110, 35);
+        botonVender.setForeground(Color.BLACK);
 
         //vender producto añado botones
         catshop.add(botonVender);
-        catshop.add(botonVaciarCamposVender);
 
 /////////////////////////////BOTONES COMPRAR UN PRODUCTO ///////////////////////////////////////////////////////////////
 
@@ -225,7 +218,7 @@ public class CatShopView {
 
         //vender producto tamaño y color de botones
         botonMandarOferta.setBounds(185, 700, 110, 35);
-        botonMandarOferta.setForeground(Color.gray);
+        botonMandarOferta.setForeground(Color.BLACK);
 
         //vender producto añado botones
         catshop.add(botonMandarOferta);
@@ -233,11 +226,11 @@ public class CatShopView {
 /////////////////////////////BOTONES MIS COMPRAS EN CURSO///////////////////////////////////////////////////////////////
 
         //mis compras en curso botones
-        botonApostarMas = new Button("Mandar contraoferta");
+        botonApostarMas = new Button("Contraoferta");
 
         //mis compras en cursov tamaño y color de botones
-        botonApostarMas.setBounds(510, 645, 110, 35);
-        botonApostarMas.setForeground(Color.gray);
+        botonApostarMas.setBounds(510, 645, 105, 35);
+        botonApostarMas.setForeground(Color.BLACK);
 
         //mis compras en curso añado botones
         catshop.add(botonApostarMas);
@@ -345,9 +338,9 @@ public class CatShopView {
         modelMisVentasAcabadas = new DefaultListModel<>();
         listaVentasAcabadas = new JList<>(modelMisVentasAcabadas);
         areaVendidoA = new JTextArea();
-        areaTelefonoAcabadas = new JTextArea();
-        areaCorreoAcabadas = new JTextArea();
-        areaPreciodeVenta = new JTextArea();
+        //areaTelefonoAcabadas = new JTextArea();
+        //areaCorreoAcabadas = new JTextArea();
+        //areaPreciodeVenta = new JTextArea();
 
         //mis ventas Tamaño del area de Texto con borde negro
         listaVentasEnCurso.setBounds(950, 145, 200, 65);
@@ -362,14 +355,14 @@ public class CatShopView {
         areaTiempoRestanteMisVentas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         listaVentasAcabadas.setBounds(1160,145, 200, 65);
         listaVentasAcabadas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaVendidoA.setBounds(1160,225, 200, 20);
+        areaVendidoA.setBounds(1160,225, 200, 110);
         areaVendidoA.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaTelefonoAcabadas.setBounds(1160,255, 200, 20);
-        areaTelefonoAcabadas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaCorreoAcabadas.setBounds(1160,285, 200, 20);
-        areaCorreoAcabadas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        areaPreciodeVenta.setBounds(1160,315, 200, 20);
-        areaPreciodeVenta.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        //areaTelefonoAcabadas.setBounds(1160,255, 200, 20);
+        //areaTelefonoAcabadas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        //areaCorreoAcabadas.setBounds(1160,285, 200, 20);
+        //areaCorreoAcabadas.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        //areaPreciodeVenta.setBounds(1160,315, 200, 20);
+        //areaPreciodeVenta.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         //mis ventas Añado area de Texto
         catshop.add(listaVentasEnCurso);
@@ -379,9 +372,9 @@ public class CatShopView {
         catshop.add(areaTiempoRestanteMisVentas);
         catshop.add(listaVentasAcabadas);
         catshop.add(areaVendidoA);
-        catshop.add(areaTelefonoAcabadas);
-        catshop.add(areaCorreoAcabadas);
-        catshop.add(areaPreciodeVenta);
+        //catshop.add(areaTelefonoAcabadas);
+        //catshop.add(areaCorreoAcabadas);
+        //catshop.add(areaPreciodeVenta);
 
         //mis ventas no editar el TextArea
         areaNombreMisVentas.setEditable(false);
@@ -389,9 +382,9 @@ public class CatShopView {
         areaPrecioActualMisVentas.setEditable(false);
         areaTiempoRestanteMisVentas.setEditable(false);
         areaVendidoA.setEditable(false);
-        areaTelefonoAcabadas.setEditable(false);
-        areaCorreoAcabadas.setEditable(false);
-        areaPreciodeVenta.setEditable(false);
+        //areaTelefonoAcabadas.setEditable(false);
+        //areaCorreoAcabadas.setEditable(false);
+        //areaPreciodeVenta.setEditable(false);
 
 ////////////////////////////////AREA COMPRAR UN PRODUCTO////////////////////////////////////////////////////////////////
 
@@ -709,9 +702,11 @@ public class CatShopView {
 
         //Para ver la ventana
         catshop.setVisible(true);
-
-
     }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
     // ===================BUTTONS ACTION LISTENERS======================
 
