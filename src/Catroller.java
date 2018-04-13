@@ -47,83 +47,75 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
     public void actionPerformed(ActionEvent e) {
         System.out.println("<<" + e.getActionCommand() + ">>");
 
-        switch (e.getActionCommand()) {
-            case "Salir":
-                System.exit(1);
-            case "Conectarse":
-                Usuario user = new Usuario(view.getRealName(), view.getUserDireccion(), view.getUserCorreo(), view.getUserTelefono(), view.getUserApodo(), myInterface);
-                try {
-                    if (!model.registrarUsuario(user)) {
-                        view.errorCreatingUser();
-                    } else {
-                        view.setCurrentUser(user);
-                        view.userSuccessfullyCreated();
-                        view.updateRegistrarUsuario();
-                    }
-                } catch (RemoteException e1) {
-                    System.err.println("Hubo un error al conectarse al servidor para registrar el usuario");
-                    e1.printStackTrace();
+        if (e.getActionCommand().equals("Salir")) {
+            System.exit(1);
+        } else if (e.getActionCommand().equals("Conectarse")) {
+            Usuario user = new Usuario(view.getRealName(), view.getUserDireccion(), view.getUserCorreo(), view.getUserTelefono(), view.getUserApodo(), myInterface);
+            try {
+                if (!model.registrarUsuario(user)) {
+                    view.errorCreatingUser();
+                } else {
+                    view.setCurrentUser(user);
+                    view.userSuccessfullyCreated(); //create success message
+                    view.updateRegistrarUsuario();
                 }
-                break;
-            case "Vender":
-                Producto prod = new Producto(view.getSellingProductName(), view.getProductDesc(), view.getTiempoVenta(), view.getProductInitialPrice(), view.getCurrentUser());
-                System.out.println("Enters here");
-                try {
-                    if (!model.ventaPermitida(prod)) {
-                        view.ventaRefused();
-                    } else {
-                        view.cleanText("Vender");
-                        view.ventaAccepted();
-                        //view.addSellingProduct(prod);
-                    }
-                } catch (RemoteException e1) {
-                    System.err.println("Hubo un error al poner a la venta el producto.");
-                    e1.printStackTrace();
-                }
-
-                break;
-            case "Mandar oferta": {
-                Oferta oferta = null;
-                try {
-                    oferta = new Oferta(view.getCurrentUser(), model.getThisProduct(view.getSelectedProductOfCatalog()), view.getMontoOferta());
-                } catch (RemoteException e1) {
-                    System.err.println("No fue possible crear la oferta.");
-                    e1.printStackTrace();
-                }
-                try {
-                    if (!model.ofertaAceptada(oferta)) {
-                        view.offerDeclined();
-                    } else {
-                        view.cleanText("Catalogo");
-                        view.offerAccepted();
-                        //view.addEstasGanandoProduct(view.getSelectedProduct());
-                    }
-                } catch (RemoteException e1) {
-                    System.err.println("Hubo un error al mandar la oferta.");
-                    e1.printStackTrace();
-                }
-                break;
+            } catch (RemoteException e1) {
+                System.err.println("Hubo un error al conectarse al servidor para registrar el usuario");
+                e1.printStackTrace();
             }
-            case "Mandar contraoferta": {
-                Oferta oferta = null;
-                try {
-                    oferta = new Oferta(view.getCurrentUser(), model.getThisProduct(view.getSelectedProductOfApuestaMas()), view.getMontoContraOferta());
-                } catch (RemoteException e1) {
-                    System.err.println("No fue possible crear la contraoferta.");
-                    e1.printStackTrace();
+        } else if (e.getActionCommand().equals("Vender")) {
+            Producto prod = new Producto(view.getSellingProductName(), view.getProductDesc(), view.getTiempoVenta(), view.getProductInitialPrice(), view.getCurrentUser());
+            try {
+                if (!model.ventaPermitida(prod)) {
+                    view.ventaRefused();
+                } else {
+                    view.cleanText("Vender");
+                    view.ventaAccepted();
+                    //view.addSellingProduct(prod);
                 }
-                try {
-                    if (!model.ofertaAceptada(oferta)) {
-                        view.offerDeclined();
-                    } else {
-                        view.cleanText("ApuestaMas");
-                        view.offerAccepted();
-                    }
-                } catch (RemoteException e1) {
-                    System.err.println("Hubo un error al agregar su contraoferta");
-                    e1.printStackTrace();
+            } catch (RemoteException e1) {
+                System.err.println("Hubo un error al poner a la venta el producto.");
+                e1.printStackTrace();
+            }
+
+        } else if (e.getActionCommand().equals("Mandar oferta")) {
+            Oferta oferta = null;
+            try {
+                oferta = new Oferta(view.getCurrentUser(), model.getThisProduct(view.getSelectedProductOfCatalog()), view.getMontoOferta());
+            } catch (RemoteException e1) {
+                System.err.println("No fue possible crear la oferta.");
+                e1.printStackTrace();
+            }
+            try {
+                if (!model.ofertaAceptada(oferta)) {
+                    view.offerDeclined();
+                } else {
+                    view.cleanText("Catalogo");
+                    view.offerAccepted();
+                    //view.addEstasGanandoProduct(view.getSelectedProduct());
                 }
-                break;
+            } catch (RemoteException e1) {
+                System.err.println("Hubo un error al mandar la oferta.");
+                e1.printStackTrace();
+            }
+        } else if (e.getActionCommand().equals("Mandar contraoferta")) {
+            Oferta oferta = null;
+            try {
+                oferta = new Oferta(view.getCurrentUser(), model.getThisProduct(view.getSelectedProductOfApuestaMas()), view.getMontoContraOferta());
+            } catch (RemoteException e1) {
+                System.err.println("No fue possible crear la contraoferta.");
+                e1.printStackTrace();
+            }
+            try {
+                if (!model.ofertaAceptada(oferta)) {
+                    view.offerDeclined();
+                } else {
+                    view.cleanText("ApuestaMas");
+                    view.offerAccepted();
+                }
+            } catch (RemoteException e1) {
+                System.err.println("Hubo un error al agregar su contraoferta");
+                e1.printStackTrace();
             }
         }
     }
@@ -134,7 +126,6 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
     public void valueChanged(ListSelectionEvent e) {
         JList<String> list = (JList<String>) e.getSource();
         String item = list.getSelectedValue();
-        System.out.println("Value changed");
         if (item != null) {
             Producto prod = null;
             try {
@@ -163,35 +154,25 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
     // ACTUALIZAR LAS ZONAS DE TEXTO DE LA VISTA
 
     public void update(String reason, Producto p) {
-        switch (reason) {
-            case "AddProductoAlCatalogo":
-                view.addProductoAlCatalogo(p);
-                break;
-            case "AddEstasGanando":
-                view.addEstasGanandoProduct(p);
-                break;
-            case "AddApuestaMas":
-                view.addApuestaMas(p);
-                break;
-            case "AddVentaProd":
-                view.addSellingProduct(p);
-                break;
-            case "AddVentaAcabada":
-                view.addVentaAcabada(p);
-                break;
-            case "AddProductoGanado":
-                view.addProductoGanado(p);
-                break;
-            case "AddProductoPerdido":
-                view.addProductoPerdido(p);
-                break;
-            case "ProductoExpirado":
-                view.removeProductoDelCatalogo(p);
-                break;
-            case "NewOfferOnOneOfYourProducts":
-                view.newOfferOnYourProduct(p);
-                break;
-        }
+        System.out.println("enters in update method with reason: " + reason);
+        if (reason.equals("AddProductoAlCatalogo"))
+            view.addProductoAlCatalogo(p);
+        else if (reason.equals("AddEstasGanando"))
+            view.addEstasGanandoProduct(p);
+        else if (reason.equals("AddApuestaMas"))
+            view.addApuestaMas(p);
+        else if (reason.equals("AddVentaProd"))
+            view.addSellingProduct(p);
+        else if (reason.equals("AddVentaAcabada"))
+            view.addVentaAcabada(p);
+        else if (reason.equals("AddProductoGanado"))
+            view.addProductoGanado(p);
+        else if (reason.equals("AddProductoPerdido"))
+            view.addProductoPerdido(p);
+        else if (reason.equals("ProductoExpirado"))
+            view.removeProductoDelCatalogo(p);
+        else if (reason.equals("NewOfferOnOneOfYourProducts"))
+            view.newOfferOnYourProduct(p);
     }
 
 }

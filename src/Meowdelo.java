@@ -210,43 +210,45 @@ public class Meowdelo implements ServerInterface {
                         p.setGanador();
                         for (Object objusuario : usuarios.values()) {
                             Usuario u = (Usuario) objusuario;
-                            System.out.println("==========DEBUG=============");
-                            System.out.println("Usuario analizado = " + u.getApodo());
-                            System.out.println("Vendedor del producto = " + p.getVendedor().getApodo());
-                            System.out.println("Ganador del producto = " + p.getGanador().getApodo());
-                            try {
                                 if (p.getVendedor().getApodo().equals(u.getApodo())) {
-                                    System.out.println("VENDEDOR OK");
-                                    u.getHisInterface().update("AddVentaAcabada", p);
+                                    try {
+                                        u.getHisInterface().update("AddVentaAcabada", p);
+                                    } catch (RemoteException e) {
+                                        e.printStackTrace();
+                                    }
                                 } else if (p.getGanador().getApodo().equals(u.getApodo())) {
-                                    System.out.println("GANADOR OK");
-                                    u.getHisInterface().update("AddProductoGanado", p);
+                                    try {
+                                        u.getHisInterface().update("AddProductoGanado", p);
+                                    } catch (RemoteException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
 
                                 else {
-                                    //if (p.getUsuariosInteresados().contains(u))
                                     boolean interesadoFound = false;
                                     for (Usuario interesado : p.getUsuariosInteresados()) {
                                         if (interesado.getApodo().equals(u.getApodo())) {
                                             interesadoFound = true;
-                                            System.out.println("Perdedor OK = " + interesado.getApodo());
-                                            u.getHisInterface().update("AddProductoPerdido", p);
+                                            try {
+                                                u.getHisInterface().update("AddProductoPerdido", p);
+                                            } catch (RemoteException e) {
+                                                e.printStackTrace();
+                                            }
                                             break;
                                         }
                                     }
                                     if (!interesadoFound) {
-                                        System.out.println("Otro usuario OK " + u.getApodo());
-                                        u.getHisInterface().update("ProductoExpirado", p);
+                                        try {
+                                            u.getHisInterface().update("ProductoExpirado", p);
+                                        } catch (RemoteException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
                                 }
-                            } catch (RemoteException e) {
-                                System.err.println("Hubo un problema al actualizar la lista de los productos.");
-                                e.printStackTrace();
                             }
                         }
                     }
                 }
-            }
         };
         final ScheduledFuture<?> scheduledFuture = scheduler.scheduleAtFixedRate(runnable, 5, 1, TimeUnit.SECONDS);
     }
