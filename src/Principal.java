@@ -9,6 +9,5 @@ public class Principal {
         catshopview.asignarActionListener(controlador);
         catshopview.asignarListSelectionListener(controlador);
 
-
     }
 }
