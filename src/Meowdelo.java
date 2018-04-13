@@ -11,21 +11,27 @@ import java.util.concurrent.TimeUnit;
 public class Meowdelo implements ServerInterface {
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    Hashtable ofertas;
-    Hashtable usuarios;
-    Hashtable productos;
-    private ArrayList<ClientInterface> callbackMe;
-    Hashtable oldProductos;
-    boolean updateEnabled = false;
+    private Hashtable ofertas;
+    private Hashtable usuarios;
+    private Hashtable productos;
+    private Hashtable oldProductos;
+    private boolean updateEnabled = false;
 
-    public Meowdelo() {
+    // =============
+    //  CONSTRUCTOR
+    // =============
+
+    Meowdelo() {
 
         usuarios = new Hashtable();
         productos = new Hashtable();
         ofertas = new Hashtable();
         oldProductos = new Hashtable();
-        callbackMe = new ArrayList<>();
     }
+
+    // ======
+    //  MAIN
+    // ======
 
     public static void main(String args[]) {
 
@@ -41,9 +47,9 @@ public class Meowdelo implements ServerInterface {
         }
     }
 
-    public void register(ClientInterface cltint) {
-        callbackMe.add(cltint);
-    }
+    // ======================
+    //  REGISTRAR EL USUARIO
+    // ======================
 
     public synchronized boolean registrarUsuario(Usuario user) throws RemoteException {
 
@@ -64,6 +70,10 @@ public class Meowdelo implements ServerInterface {
             return false;
     }
 
+    // ===============================
+    //  PRUEBA VALIDEZ VENTA + OFERTA
+    // ===============================
+
     public synchronized boolean ventaPermitida(Producto producto) throws RemoteException {
         if (!productos.containsKey(producto.getNombre())) {
             System.out.println("Agregando un nuevo producto: " + producto.getNombre());
@@ -79,17 +89,12 @@ public class Meowdelo implements ServerInterface {
     }
 
     public synchronized boolean ofertaAceptada(Oferta oferta) throws RemoteException {
-        // A CAMBIAR
         for (Object o : productos.values()) {
             Producto p = (Producto) o;
-            //System.out.println("Precio actual del producto de la hashtable: " + p.getPrecioActual());
-            //System.out.println("Precio actual del producto vinculado a la oferta: " + oferta.getProducto().getPrecioActual());
             if (oferta.getProducto().getNombre().equals(p.getNombre())) {
                 p = oferta.getProducto();
 
                 if (p.actualizaPrecio(oferta.getMontoOferta())) {
-                    //System.out.println("Precio actual del producto de la hashtable: " + p.getPrecioActual());
-                    //System.out.println("Precio actual del producto vinculado a la oferta: " + oferta.getProducto().getPrecioActual());
 
                     for (Object key : productos.keySet()) {
                         String s = (String) key;
@@ -117,114 +122,12 @@ public class Meowdelo implements ServerInterface {
         }
         return false;
     }
-        /*
-        if (productos.containsKey(oferta.getProducto().getNombre())) {
 
-            Producto prod = oferta.getProducto();
+    // ===============================================
+    //  ACCIONES A TOMAR SI EL CHEQUEO ESTUVO EXITOSO
+    // ===============================================
 
-            if (prod.actualizaPrecio(oferta.getMontoOferta())) {
-
-                prod.addOferta(oferta);
-
-                if (ofertas.containsKey(prod.getNombre())) {
-                    ofertas.replace(prod.getNombre(), oferta);
-                } else {
-                    ofertas.put(prod.getNombre(), oferta);
-                }
-                updateAfterSendingAnOffer(oferta);
-
-                return true;
-
-            } else
-
-                return false;
-
-        } else
-
-            return false;*/
-
-    // regresa un producto en la lista de objetos en venta o ya vendido
-
-    public Producto getThisProduct(String productName) {
-        Producto wanted = null;
-        String existingProductName = null;
-        for (Object key : productos.keySet()) {
-            existingProductName = (String) key;
-            if (existingProductName.equals(productName))
-                wanted = (Producto) productos.get(key);
-        }
-        if (wanted == null) {
-            for (Object key : oldProductos.keySet()) {
-                existingProductName = (String) key;
-                if (existingProductName.equals(productName))
-                    wanted = (Producto) oldProductos.get(key);
-            }
-        }
-        return wanted;
-    }
-
-    public Usuario getThisUser(String nickname) {
-        Usuario user = (Usuario) usuarios.get(nickname);
-        return user;
-    }
-
-    public ArrayList<Producto> obtieneCatalogoActivo() {
-        ArrayList<Producto> productosActivos = new ArrayList<>();
-
-        for (Object o : productos.values()) {
-            Producto p = (Producto) o;
-            if (p.getLimite().compareTo(Calendar.getInstance()) <= 0) {
-                productosActivos.add(p);
-            }
-        }
-        return productosActivos;
-    }
-
-    public ArrayList<Producto> obtieneProductosExpirados() {
-        ArrayList<Producto> productosExpirados = new ArrayList<>();
-
-        for (Object o : productos.values()) {
-            Producto p = (Producto) o;
-            if (p.getLimite().compareTo(Calendar.getInstance()) >= 0) {
-                productosExpirados.add(p);
-            }
-        }
-        return productosExpirados;
-    }
-
-    public List<Producto> getProductosGanados(Usuario user) {
-        ArrayList<Producto> productosGanados = new ArrayList<>();
-        for (Producto p : obtieneProductosExpirados()) {
-            if (p.getGanador() == user) {
-                productosGanados.add(p);
-            }
-        }
-        return productosGanados;
-    }
-
-    public List<Producto> getProductosPerdidos(Usuario user) {
-        ArrayList<Producto> productosPerdidos = new ArrayList<>();
-        for (Producto p : obtieneProductosExpirados()) {
-            if (p.getGanador() != user) {
-                productosPerdidos.add(p);
-            }
-        }
-        return productosPerdidos;
-    }
-
-    public boolean sigueGanando(Usuario u, String prodAComprobar) {
-        Producto productoAComprobar = (Producto) productos.get(prodAComprobar);
-        List<Oferta> ofertasOnThisProd = productoAComprobar.getOfertas();
-        // if the last offer on this product is of the same buyer, return true
-        if (ofertasOnThisProd.get(ofertasOnThisProd.size() - 1).getCompradorPotencial() == u) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-    public void updateAfterSellingAProduct(Producto p) throws RemoteException {
+    private void updateAfterSellingAProduct(Producto p) throws RemoteException {
         for (Object o : usuarios.values()) {
             Usuario u = (Usuario) o;
             if (p.getVendedor().getApodo().equals(u.getApodo()))
@@ -234,7 +137,7 @@ public class Meowdelo implements ServerInterface {
         }
     }
 
-    public void updateAfterSendingAnOffer(Oferta oferta) throws RemoteException {
+    private void updateAfterSendingAnOffer(Oferta oferta) throws RemoteException {
         System.out.println("======== DEBUG AFTER SENDING OFFER ========");
         for (Object o : usuarios.values()) {
             Usuario u = (Usuario) o;
@@ -247,8 +150,7 @@ public class Meowdelo implements ServerInterface {
             } else if (oferta.getCompradorPotencial().getApodo().equals(u.getApodo())) {
                 System.out.println("Este usuario esta ganando: " + u.getApodo());
                 u.getHisInterface().update("AddEstasGanando", oferta.getProducto());
-            }
-            else {
+            } else {
                 if (!oferta.getProducto().getUsuariosInteresados().isEmpty()) {
                     for (Usuario interesado : oferta.getProducto().getUsuariosInteresados()) {
                         System.out.println("Apodo del intersado analizado (para entrar al ultimo if): " + interesado.getApodo());
@@ -271,8 +173,33 @@ public class Meowdelo implements ServerInterface {
         }
     }
 
+    // ========
+    //  GETTER
+    // ========
 
-    public void updateProductList() {
+    public Producto getThisProduct(String productName) {
+        Producto wanted = null;
+        String existingProductName = null;
+        for (Object key : productos.keySet()) {
+            existingProductName = (String) key;
+            if (existingProductName.equals(productName))
+                wanted = (Producto) productos.get(key);
+        }
+        if (wanted == null) {
+            for (Object key : oldProductos.keySet()) {
+                existingProductName = (String) key;
+                if (existingProductName.equals(productName))
+                    wanted = (Producto) oldProductos.get(key);
+            }
+        }
+        return wanted;
+    }
+
+    // ===================================================
+    //  ACTULIZACION DE LA LISTA DE LOS PRODUCTOS VALIDOS
+    // ===================================================
+
+    private void updateProductList() {
         final Runnable runnable = () -> {
             if (!productos.isEmpty()) {
                 for (Object o : productos.values()) {
