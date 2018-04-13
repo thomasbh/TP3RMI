@@ -71,7 +71,6 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
                 } else {
                     view.cleanText("Vender");
                     view.ventaAccepted();
-                    //view.addSellingProduct(prod);
                 }
             } catch (RemoteException e1) {
                 System.err.println("Hubo un error al poner a la venta el producto.");
@@ -92,7 +91,6 @@ public class Catroller implements ActionListener, ListSelectionListener, ClientI
                 } else {
                     view.cleanText("Catalogo");
                     view.offerAccepted();
-                    //view.addEstasGanandoProduct(view.getSelectedProduct());
                 }
             } catch (RemoteException e1) {
                 System.err.println("Hubo un error al mandar la oferta.");
